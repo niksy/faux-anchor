@@ -1,0 +1,21 @@
+li {
+	margin:10px 0;
+	padding:20px;
+	background:green;
+	color:white;
+}
+
+li a {
+	display:block;
+	padding:10px;
+	background:red;
+	color:white;
+}
+
+:target {
+	background:yellow;
+}
+
+.controls {
+	position:fixed; right:10px; top:10px;
+}
