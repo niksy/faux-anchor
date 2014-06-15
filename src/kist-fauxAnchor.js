@@ -127,6 +127,8 @@
 
 	});
 
+	$.kist = $.kist || {};
+
 	$.fn[plugin.name] = function ( options ) {
 
 		if ( typeof(options) === 'string' && $.inArray(options, plugin.publicMethods) !== -1 ) {
