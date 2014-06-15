@@ -1,4 +1,4 @@
-/*! kist-fauxAnchor 0.0.0 - Simulate anchors on non-anchor elements. | Author: Ivan Nikolić, 2014 | License: MIT */
+/*! kist-fauxAnchor 0.1.0 - Simulate anchors on non-anchor elements. | Author: Ivan Nikolić, 2014 | License: MIT */
 ;(function ( $, window, document, undefined ) {
 
 	var plugin = {
