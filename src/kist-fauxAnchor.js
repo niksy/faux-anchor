@@ -57,7 +57,6 @@
 
 		this.element = element;
 		this.options = $.extend({}, this.defaults, options);
-		this.prevented = false;
 
 		instance.setup.call(this);
 		dom.setup.call(this);
@@ -124,6 +123,7 @@
 			this.prevented = false;
 		},
 
+		prevented: false,
 		defaults: {
 
 			/**
