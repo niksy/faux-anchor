@@ -45,7 +45,7 @@ Update plugin instance with new data (e.g. previously updated `data` object).
 
 Prevent plugin instance from activating action.
 
-###### prevent
+###### unprevent
 
 Unprevent plugin instance action prevention.
 
