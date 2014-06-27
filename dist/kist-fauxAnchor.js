@@ -1,4 +1,4 @@
-/*! kist-fauxAnchor 0.1.2 - Simulate anchors on non-anchor elements. | Author: Ivan Nikolić, 2014 | License: MIT */
+/*! kist-fauxAnchor 0.1.3 - Simulate anchors on non-anchor elements. | Author: Ivan Nikolić, 2014 | License: MIT */
 ;(function ( $, window, document, undefined ) {
 
 	var plugin = {
@@ -58,7 +58,6 @@
 
 		this.element = element;
 		this.options = $.extend({}, this.defaults, options);
-		this.prevented = false;
 
 		instance.setup.call(this);
 		dom.setup.call(this);
@@ -125,6 +124,7 @@
 			this.prevented = false;
 		},
 
+		prevented: false,
 		defaults: {
 
 			/**
