@@ -41,6 +41,14 @@ Destroy plugin instance.
 
 Update plugin instance with new data (e.g. previously updated `data` object).
 
+###### prevent
+
+Prevent plugin instance from activating action.
+
+###### prevent
+
+Unprevent plugin instance action prevention.
+
 ## Examples
 
 Default structure for faux anchor.
@@ -72,6 +80,18 @@ Update element which previously didn’t have data
 ```js
 $('li').fauxAnchor();
 $('li').data('href','#foo').fauxAnchor('update');
+```
+
+Prevent plugin instance action.
+
+```js
+$('li').fauxAnchor('prevent');
+```
+
+Unprevent plugin instance action.
+
+```js
+$('li').fauxAnchor('unprevent');
 ```
 
 Destroy plugin instance.

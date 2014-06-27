@@ -13,3 +13,6 @@ $('li').fauxAnchor('destroy');
 // Update element which previously didn’t have data
 $('li').fauxAnchor();
 $('li').data('href','#foo').fauxAnchor('update');
+
+$('li').fauxAnchor('prevent');
+$('li').fauxAnchor('unprevent');

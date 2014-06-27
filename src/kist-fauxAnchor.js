@@ -13,7 +13,7 @@
 	plugin.classes = {
 		item: plugin.ns.css + '-item'
 	};
-	plugin.publicMethods = ['destroy','update'];
+	plugin.publicMethods = ['destroy','update','prevent','unprevent'];
 
 	var dom = {
 		setup: function () {
@@ -30,6 +30,9 @@
 	var events = {
 		setup: function () {
 			this.dom.el.on('click' + this.instance.ens, $.proxy(function ( e ) {
+				if ( this.prevented ) {
+					return;
+				}
 				this.action(this.data.href, this.data.target, e.target);
 			}, this));
 		},
@@ -54,6 +57,7 @@
 
 		this.element = element;
 		this.options = $.extend({}, this.defaults, options);
+		this.prevented = false;
 
 		instance.setup.call(this);
 		dom.setup.call(this);
@@ -110,6 +114,14 @@
 			dom.destroy.call(this);
 			events.destroy.call(this);
 			instance.destroy.call(this);
+		},
+
+		prevent: function () {
+			this.prevented = true;
+		},
+
+		unprevent: function () {
+			this.prevented = false;
 		},
 
 		defaults: {
