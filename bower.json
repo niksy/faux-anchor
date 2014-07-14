@@ -19,7 +19,8 @@
     "package.json"
   ],
   "dependencies": {
-    "jquery": ">=1"
+    "jquery": ">=1",
+    "mockDefault": "niksy/mockDefault#~0.1.0"
   },
   "keywords": [
     "faux",

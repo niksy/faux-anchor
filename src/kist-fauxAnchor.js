@@ -29,12 +29,19 @@
 
 	var events = {
 		setup: function () {
+
 			this.dom.el.on('click' + this.instance.ens, $.proxy(function ( e ) {
+
+				var target = ($.Event.prototype.mockDefault && e.mockDefault(true)) ? '_blank' : this.data.target;
+
 				if ( this.prevented ) {
 					return;
 				}
-				this.action(this.data.href, this.data.target, e.target);
+
+				this.action(this.data.href, target, e.target);
+
 			}, this));
+
 		},
 		destroy: function () {
 			this.dom.el.off(this.instance.ens);
