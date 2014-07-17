@@ -22,6 +22,13 @@ Type: `Object|String`
 
 ##### Options defined as `Object`
 
+###### action
+
+Type: `Function`  
+Returns: ( [Currently clicked element], [Default action] )
+
+Custom action to trigger on activation.
+
 ###### condition
 
 Type: `Function`  
@@ -63,6 +70,17 @@ Run on list item.
 
 ```js
 $('li').fauxAnchor();
+```
+
+Set custom action.
+
+```js
+$('li').fauxAnchor({
+	action: function ( e, done ) {
+		// Do something
+		done();
+	}
+});
 ```
 
 Set condition upon which links should be activated.

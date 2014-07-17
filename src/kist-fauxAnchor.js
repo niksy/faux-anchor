@@ -33,12 +33,13 @@
 			this.dom.el.on('click' + this.instance.ens, $.proxy(function ( e ) {
 
 				var target = ($.Event.prototype.mockDefault && e.mockDefault(true)) ? '_blank' : this.data.target;
+				var action = $.proxy(this.action, this, this.data.href, target, e.target);
 
 				if ( this.prevented ) {
 					return;
 				}
 
-				this.action(this.data.href, target, e.target);
+				this.options.action.call(this, e, action);
 
 			}, this));
 
@@ -132,6 +133,16 @@
 
 		prevented: false,
 		defaults: {
+
+			/**
+			 * @param  {Object}   e
+			 * @param  {Function} done
+			 *
+			 * @return {}
+			 */
+			action: function ( e, done ) {
+				done.call(this);
+			},
 
 			/**
 			 * @param  {Element} target

@@ -22,6 +22,9 @@
     "jquery": ">=1",
     "mockDefault": "niksy/mockDefault#~0.1.0"
   },
+  "devDependencies": {
+    "jquery": "1"
+  },
   "keywords": [
     "faux",
     "anchor"
