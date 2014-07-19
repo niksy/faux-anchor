@@ -1,7 +1,7 @@
 {
   "name": "kist-fauxAnchor",
   "version": "0.3.0",
-  "description": "Simulate anchors on non-anchor elements.",
+  "description": "Simulate default anchor action.",
   "authors": [
     "Ivan Nikolić"
   ],
@@ -19,8 +19,7 @@
     "package.json"
   ],
   "dependencies": {
-    "jquery": ">=1",
-    "mockDefault": "niksy/mockDefault#~0.1.0"
+    "jquery": ">=1"
   },
   "devDependencies": {
     "jquery": "1"

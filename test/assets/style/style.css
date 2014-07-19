@@ -1,12 +1,15 @@
-li {
+a, li {
 	margin:10px 0;
 	padding:20px;
 	background:green;
 	color:white;
 }
 
-li a {
+a {
 	display:block;
+}
+
+li a {
 	padding:10px;
 	background:red;
 	color:white;
@@ -14,6 +17,10 @@ li a {
 
 :target {
 	background:yellow;
+}
+a:focus,
+li:focus {
+	outline:5px solid hotpink;
 }
 
 .controls {

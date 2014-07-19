@@ -23,6 +23,24 @@
 		#foo clicked!
 	</div>
 
+	<ul>
+		<a class="first" href="#faux">
+			<span>Only href="#faux"</span>
+		</a>
+		<a class="second">
+			<span>No handlers</span>
+		</a>
+		<a class="third" href="#faux2">
+			<span>Only href="#faux2", with condition 'screen and (max-width:900px)'</span>
+		</a>
+		<a class="fourth" href="#faux" target="_blank">
+			<span>href="#faux" and target="_blank"</span>
+		</a>
+		<a class="fifth" href="#faux">
+			<span>Custom basic and alternative actions</span>
+		</a>
+	</ul>
+
 	<div class="controls">
 		<button type="button" class="updateSecond">Update '.second' with <code>{href:'#foo'}</code></button><br />
 		<button type="button" class="destroyAll">Destroy all instances</button><br />
@@ -32,25 +50,6 @@
 		<button type="button" class="unpreventFirst">Unprevent '.first'</button><br />
 		<button type="button" class="unpreventSecond">Unprevent '.second'</button>
 	</div>
-
-	<ul>
-		<li class="first" data-href="#faux">
-			<span>Only data-href="faux"</span>
-			<a href="#link">Link</a>
-		</li>
-		<li class="second">
-			<span>No handlers</span>
-			<a href="#link">Test</a>
-		</li>
-		<li class="third" data-href="#faux2">
-			<span>Only data-href="faux2", with condition 'screen and (max-width:900px)'</span>
-			<a href="#link">Test</a>
-		</li>
-		<li class="fourth" data-href="#faux" data-target="_blank">
-			<span>data-href="faux" and data-target="_blank"</span>
-			<a href="#link">Test</a>
-		</li>
-	</ul>
 
 	<script src="../bower_components/jquery/dist/jquery.min.js"></script>
 	<script src="../src/kist-fauxAnchor.js"></script>
@@ -69,12 +68,25 @@
 
 		$('.fourth').fauxAnchor();
 
+		$('.fifth').fauxAnchor({
+			basic: function ( el, done ) {
+				console.log('Basic action');
+			},
+			alternative: function ( el, done ) {
+				console.log('Alternative action');
+			}
+		});
+
 		$('.updateSecond').on('click', function ( e ) {
-			$('.second').data('href','#foo').fauxAnchor('update');
+			$('.second').attr('href','#foo');
 		});
 
 		$('.triggerFirst').on('click', function ( e ) {
 			$('.first').trigger('click');
+		});
+
+		$('.destroyAll').on('click', function ( e ) {
+			$('li').fauxAnchor('destroy');
 		});
 
 		$('.preventFirst').on('click', function ( e ) {
@@ -91,10 +103,6 @@
 
 		$('.unpreventSecond').on('click', function ( e ) {
 			$('.second').fauxAnchor('unprevent');
-		});
-
-		$('.destroyAll').on('click', function ( e ) {
-			$('li').fauxAnchor('destroy');
 		});
 
 	</script>

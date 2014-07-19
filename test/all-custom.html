@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Faux anchor</title>
+	<link rel="stylesheet" href="assets/style/style.css" />
+</head>
+<body>
+
+	<div id="faux">
+		#faux clicked!
+	</div>
+
+	<div id="faux2">
+		#faux2 clicked!
+	</div>
+
+	<div id="link">
+		#link clicked!
+	</div>
+
+	<div id="foo">
+		#foo clicked!
+	</div>
+
+	<ul>
+		<li>
+			<a class="anchor" href="#faux">
+				<span>Anchor</span>
+			</a>
+		</li>
+		<li class="basic" data-href="#faux">
+			<span>Basic</span>
+		</li>
+		<li>
+			<button type="button" class="button" data-href="#faux">
+				<span>Button</span>
+			</button>
+		</li>
+	</ul>
+
+	<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="../src/kist-fauxAnchor.js"></script>
+
+	<script>
+
+		$('.anchor').fauxAnchor({
+			basic: function ( el, done ) {
+				console.log('Basic action');
+			},
+			alternative: function ( el, done ) {
+				console.log('Alternative action');
+			}
+		});
+
+		$('.basic').fauxAnchor({
+			basic: function ( el, done ) {
+				console.log('Basic action');
+			},
+			alternative: function ( el, done ) {
+				console.log('Alternative action');
+			}
+		});
+
+		$('.button').fauxAnchor({
+			basic: function ( el, done ) {
+				console.log('Basic action');
+			},
+			alternative: function ( el, done ) {
+				console.log('Alternative action');
+			}
+		});
+
+	</script>
+
+</body>
+</html>

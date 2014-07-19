@@ -1,6 +1,8 @@
 # kist-fauxAnchor
 
-Simulate anchors on non-anchor elements.
+Simulate default anchor action.
+
+When run on anchor elements, it "hijacks" standard action and gives you option of running some operation (e.g. logging some statistics, sending analytics data, executing long AJAX request, etc.) before basic action or in conjuction with alternative action.
 
 ## Installation
 
@@ -14,7 +16,7 @@ bower install niksy/kist-fauxAnchor
 
 Returns: `jQuery`
 
-Picks up necessary data from data attributes on element: `href` for URL and `target` for window name.
+Picks up necessary data from data attributes on element: `href` for URL and `target` for window name when run on non-anchor elements, or standard `href` and `target` attributes when run on standard anchor elements.
 
 #### options
 
@@ -22,17 +24,25 @@ Type: `Object|String`
 
 ##### Options defined as `Object`
 
-###### action
+All methods have their `this` property pointed to element on which the plugin was initiated.
+
+###### basic
 
 Type: `Function`  
-Returns: ( [Currently clicked element], [Default action] )
+Arguments: [Default action]
 
-Custom action to trigger on activation.
+Custom action to trigger on basic action (default click, left mouse button click, etc.).
+
+###### alternative
+
+Type: `Function`  
+Arguments: [Alternative action]
+
+Custom action to trigger on alternative action (⌃ or ⌘ + left mouse button click, middle mouse button click, etc.).
 
 ###### condition
 
 Type: `Function`  
-Returns: ( [Currently clicked element] )
 
 If function returns true, link will be activated.
 
@@ -44,26 +54,22 @@ Type: `String`
 
 Destroy plugin instance.
 
-###### update
-
-Update plugin instance with new data (e.g. previously updated `data` object).
-
 ###### prevent
 
-Prevent plugin instance from activating action.
+Prevent plugin instance from activating actions.
 
 ###### unprevent
 
-Unprevent plugin instance action prevention.
+Unprevent plugin instance actions prevention.
 
 ## Examples
 
 Default structure for faux anchor.
 
 ```html
-<li data-href="http://example.com" data-target="_blank">
-	Some content
-</li>
+<li data-href="http://example.com" data-target="_blank">Some content</li>
+
+<a href="http://example.com" target="_blank">Some content</li>
 ```
 
 Run on list item.
@@ -72,12 +78,24 @@ Run on list item.
 $('li').fauxAnchor();
 ```
 
-Set custom action.
+Run on standard anchor.
 
 ```js
-$('li').fauxAnchor({
-	action: function ( e, done ) {
+$('a').fauxAnchor();
+```
+
+Set custom actions.
+
+```js
+$('.element').fauxAnchor({
+	basic: function ( done ) {
 		// Do something
+		$(this).addClass('foo');
+		done();
+	},
+	alternative: function ( done ) {
+		// Do something
+		$(this).addClass('bar');
 		done();
 	}
 });
@@ -86,36 +104,29 @@ $('li').fauxAnchor({
 Set condition upon which links should be activated.
 
 ```js
-$('li').fauxAnchor({
-	condition: function ( target ) {
+$('.element').fauxAnchor({
+	condition: function () {
 		return window.matchMedia('screen and (max-width:600px)').matches;
 	}
 });
 ```
 
-Update element which previously didn’t have data
-
-```js
-$('li').fauxAnchor();
-$('li').data('href','#foo').fauxAnchor('update');
-```
-
 Prevent plugin instance action.
 
 ```js
-$('li').fauxAnchor('prevent');
+$('.element').fauxAnchor('prevent');
 ```
 
 Unprevent plugin instance action.
 
 ```js
-$('li').fauxAnchor('unprevent');
+$('.element').fauxAnchor('unprevent');
 ```
 
 Destroy plugin instance.
 
 ```js
-$('li').fauxAnchor('destroy');
+$('.element').fauxAnchor('destroy');
 ```
 
 ## Browser support
