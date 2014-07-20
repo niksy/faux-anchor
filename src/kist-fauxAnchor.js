@@ -62,7 +62,7 @@
 	};
 
 	/**
-	 * Stop executing main action
+	 * Stop executing entry action
 	 *
 	 * @param  {String} event
 	 * @param  {Integer} key
@@ -70,7 +70,7 @@
 	 *
 	 * @return {Boolean}
 	 */
-	function stop ( event, key, e ) {
+	function stopEntryAction ( event, key, e ) {
 
 		var webkit  = env.browser.webkit.all;
 		var safari  = env.browser.safari.all;
@@ -151,7 +151,7 @@
 			e.preventDefault();
 		}
 
-		if ( stop.call(this, event, key, e) ) {
+		if ( stopEntryAction.call(this, event, key, e) ) {
 			return;
 		}
 
