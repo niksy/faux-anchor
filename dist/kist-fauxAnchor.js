@@ -1,4 +1,4 @@
-/*! kist-fauxAnchor 0.4.0 - Simulate default anchor action. | Author: Ivan Nikolić, 2014 | License: MIT */
+/*! kist-fauxAnchor 0.4.1 - Simulate default anchor action. | Author: Ivan Nikolić, 2014 | License: MIT */
 ;(function ( $, window, document, undefined ) {
 
 	var plugin = {
@@ -63,7 +63,7 @@
 	};
 
 	/**
-	 * Stop executing main action
+	 * Stop executing entry action
 	 *
 	 * @param  {String} event
 	 * @param  {Integer} key
@@ -71,7 +71,7 @@
 	 *
 	 * @return {Boolean}
 	 */
-	function stop ( event, key, e ) {
+	function stopEntryAction ( event, key, e ) {
 
 		var webkit  = env.browser.webkit.all;
 		var safari  = env.browser.safari.all;
@@ -152,7 +152,7 @@
 			e.preventDefault();
 		}
 
-		if ( stop.call(this, event, key, e) ) {
+		if ( stopEntryAction.call(this, event, key, e) ) {
 			return;
 		}
 
