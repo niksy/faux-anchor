@@ -1,4 +1,4 @@
-/*! kist-fauxAnchor 0.4.1 - Simulate default anchor action. | Author: Ivan Nikolić, 2014 | License: MIT */
+/*! kist-fauxAnchor 0.4.2 - Simulate default anchor action. | Author: Ivan Nikolić, 2014 | License: MIT */
 ;(function ( $, window, document, undefined ) {
 
 	var plugin = {
@@ -314,13 +314,14 @@
 		 *
 		 * @param  {String} url
 		 * @param  {String} target
-		 * @param  {Element} el
+		 * @param  {Element} trueTarget
 		 *
 		 * @return {}
 		 */
-		action: function ( url, target, el ) {
+		action: function ( url, target, trueTarget ) {
 
 			var type = target === '_blank' ? 'alternative' : 'basic';
+			var domEl = this.dom.el[0];
 
 			/**
 			 * Exit early if:
@@ -330,14 +331,14 @@
 			 *   * location is not provided
 			 */
 			if (
-				( this.options.type !== 'anchor' && $(el).closest('a').length ) ||
-				!this.options.condition.call(this.dom.el[0]) ||
+				( this.options.type !== 'anchor' && $(trueTarget).closest('a').length ) ||
+				!this.options.condition.call(domEl, domEl) ||
 				!url
 			) {
 				return;
 			}
 
-			return this.options[type].call(this.dom.el[0], $.proxy(this[type], this, url));
+			return this.options[type].call(domEl, $.proxy(this[type], this, url), domEl);
 
 		},
 
@@ -388,10 +389,11 @@
 			 *
 			 * @this {FauxAnchor#dom.el[0]}
 			 * @param  {Function} done
+			 * @param  {Element} el
 			 *
 			 * @return {}
 			 */
-			basic: function ( done ) {
+			basic: function ( done, el ) {
 				done();
 			},
 
@@ -400,18 +402,21 @@
 			 *
 			 * @this {FauxAnchor#dom.el[0]}
 			 * @param  {Function} done
+			 * @param  {Element} el
 			 *
 			 * @return {}
 			 */
-			alternative: function ( done ) {
+			alternative: function ( done, el ) {
 				done();
 			},
 
 			/**
 			 * @this {FauxAnchor#dom.el[0]}
+			 * @param  {Element} el
+			 *
 			 * @return {Boolean}
 			 */
-			condition: function () {
+			condition: function ( el ) {
 				return true;
 			}
 
