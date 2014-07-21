@@ -9,11 +9,11 @@ $('li').fauxAnchor({
 
 // Define custom basic and alternative action
 $('li').fauxAnchor({
-	basic: function ( el, done ) {
-
+	basic: function ( done, el ) {
+		// Do something
 	},
-	alternative: function ( el, done ) {
-
+	alternative: function ( done, el ) {
+		// Do something
 	}
 });
 
