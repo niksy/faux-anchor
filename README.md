@@ -47,6 +47,12 @@ Arguments: [Element]
 
 If function returns true, link will be activated.
 
+###### focus
+
+Type: `Boolean`  
+
+Should the unfocusable element be focusable.
+
 ##### Options defined as `String`
 
 Type: `String`
@@ -109,6 +115,14 @@ $('.element').fauxAnchor({
 	condition: function ( el ) {
 		return window.matchMedia('screen and (max-width:600px)').matches;
 	}
+});
+```
+
+Set option which determines should the unfocusable element be focusable.
+
+```js
+$('.element').fauxAnchor({
+	focus: true
 });
 ```
 

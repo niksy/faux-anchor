@@ -23,14 +23,14 @@
 			this.dom.el.addClass(plugin.classes.item);
 
 			// Make unfocusable elements focusable
-			if ( this.options.type === 'unfocusable' ) {
+			if ( this.options.type === 'unfocusable' && this.options.focus ) {
 				this.dom.el.attr('tabindex', 0);
 			}
 		},
 		destroy: function () {
 			this.dom.el.removeClass(plugin.classes.item);
 
-			if ( this.options.type === 'unfocusable' ) {
+			if ( this.options.type === 'unfocusable' && this.options.focus ) {
 				this.dom.el.removeAttr('tabindex');
 			}
 		}
@@ -382,6 +382,13 @@
 
 		prevented: false,
 		defaults: {
+
+			/**
+			 * Should the unfocusable element be focusable
+			 *
+			 * @type {Boolean}
+			 */
+			focus: true,
 
 			/**
 			 * Basic action

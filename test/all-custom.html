@@ -37,6 +37,9 @@
 				<span>Button</span>
 			</button>
 		</li>
+		<li class="basic-unfocusable" data-href="#faux">
+			<span>Basic</span>
+		</li>
 	</ul>
 
 	<script src="../bower_components/jquery/dist/jquery.min.js"></script>
@@ -63,6 +66,16 @@
 		});
 
 		$('.button').fauxAnchor({
+			basic: function ( el, done ) {
+				console.log('Basic action');
+			},
+			alternative: function ( el, done ) {
+				console.log('Alternative action');
+			}
+		});
+
+		$('.basic-unfocusable').fauxAnchor({
+			focus: false,
 			basic: function ( el, done ) {
 				console.log('Basic action');
 			},

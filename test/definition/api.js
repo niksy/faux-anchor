@@ -7,6 +7,11 @@ $('li').fauxAnchor({
 	}
 });
 
+// Should the unfocusable element be focusable.
+$('li').fauxAnchor({
+	focus: true
+});
+
 // Define custom basic and alternative action
 $('li').fauxAnchor({
 	basic: function ( done, el ) {
