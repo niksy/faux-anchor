@@ -160,7 +160,7 @@
 		this.action(
 			abstract.href.call(this, type),
 			abstract.target.call(this, type, e),
-			e.target
+			e
 		);
 
 	}
@@ -282,11 +282,11 @@
 				/**
 				 * Don’t simulate alternative if:
 				 *   * is anchor AND
-				 *   * middle mouse button AND is not WebKit browser OR
-				 *   * left mouse button AND ⌃ AND is IE <= 8
+				 *   * middle mouse button AND is not WebKit browser AND is not IE <= 8 OR
+				 *   * current element is the same as clicked element AND is IE <= 8 AMD (middle mouse button OR left mouse button AND ⌃)
 				 */
-				if ( (e.which === 2 && !env.browser.webkit.all) ||
-					(e.which === 1 && e.ctrlKey && env.browser.ie.lte8)
+				if ( (e.which === 2 && (!env.browser.webkit.all && !env.browser.ie.lte8)) ||
+					(this.dom.el.is(e.target) && env.browser.ie.lte8 && (e.which === 2 || (e.which === 1 && e.ctrlKey)))
 				) {
 					return false;
 				}
@@ -313,11 +313,11 @@
 		 *
 		 * @param  {String} url
 		 * @param  {String} target
-		 * @param  {Element} trueTarget
+		 * @param  {Object} e
 		 *
 		 * @return {}
 		 */
-		action: function ( url, target, trueTarget ) {
+		action: function ( url, target, e ) {
 
 			var type = target === '_blank' ? 'alternative' : 'basic';
 			var domEl = this.dom.el[0];
@@ -330,14 +330,14 @@
 			 *   * location is not provided
 			 */
 			if (
-				( this.options.type !== 'anchor' && $(trueTarget).closest('a').length ) ||
-				!this.options.condition.call(domEl, domEl) ||
+				( this.options.type !== 'anchor' && $(e.target).closest('a').length ) ||
+				!this.options.condition.call(domEl, e) ||
 				!url
 			) {
 				return;
 			}
 
-			return this.options[type].call(domEl, $.proxy(this[type], this, url), domEl);
+			return this.options[type].call(domEl, $.proxy(this[type], this, url), e);
 
 		},
 
@@ -395,11 +395,11 @@
 			 *
 			 * @this {FauxAnchor#dom.el[0]}
 			 * @param  {Function} done
-			 * @param  {Element} el
+			 * @param  {Object} e
 			 *
 			 * @return {}
 			 */
-			basic: function ( done, el ) {
+			basic: function ( done, e ) {
 				done();
 			},
 
@@ -408,21 +408,21 @@
 			 *
 			 * @this {FauxAnchor#dom.el[0]}
 			 * @param  {Function} done
-			 * @param  {Element} el
+			 * @param  {Object} e
 			 *
 			 * @return {}
 			 */
-			alternative: function ( done, el ) {
+			alternative: function ( done, e ) {
 				done();
 			},
 
 			/**
 			 * @this {FauxAnchor#dom.el[0]}
-			 * @param  {Element} el
+			 * @param  {Object} e
 			 *
 			 * @return {Boolean}
 			 */
-			condition: function ( el ) {
+			condition: function ( e ) {
 				return true;
 			}
 

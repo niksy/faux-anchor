@@ -47,40 +47,45 @@
 
 	<script>
 
+		function isOriginalElement ( original, target ) {
+			return original.is(target);
+		}
+
 		$('.anchor').fauxAnchor({
 			basic: function ( done, e ) {
-				console.log('Basic action');
+				console.log(isOriginalElement($(this), $(e.target)));
 			},
 			alternative: function ( done, e ) {
-				console.log('Alternative action');
+				console.log(isOriginalElement($(this), $(e.target)));
+				done();
 			}
 		});
 
 		$('.basic').fauxAnchor({
 			basic: function ( done, e ) {
-				console.log('Basic action');
+				console.log(isOriginalElement($(this), $(e.target)));
 			},
 			alternative: function ( done, e ) {
-				console.log('Alternative action');
+				console.log(isOriginalElement($(this), $(e.target)));
 			}
 		});
 
 		$('.button').fauxAnchor({
 			basic: function ( done, e ) {
-				console.log('Basic action');
+				console.log(isOriginalElement($(this), $(e.target)));
 			},
 			alternative: function ( done, e ) {
-				console.log('Alternative action');
+				console.log(isOriginalElement($(this), $(e.target)));
 			}
 		});
 
 		$('.basic-unfocusable').fauxAnchor({
 			focus: false,
 			basic: function ( done, e ) {
-				console.log('Basic action');
+				console.log(isOriginalElement($(this), $(e.target)));
 			},
 			alternative: function ( done, e ) {
-				console.log('Alternative action');
+				console.log(isOriginalElement($(this), $(e.target)));
 			}
 		});
 
