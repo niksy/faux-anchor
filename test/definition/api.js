@@ -22,6 +22,16 @@ $('li').fauxAnchor({
 	}
 });
 
+// Define custom basic and alternative action, aliases
+$('li').fauxAnchor({
+	primary: function ( done, el ) {
+		// Do something
+	},
+	secondary: function ( done, el ) {
+		// Do something
+	}
+});
+
 // Destroy
 $('li').fauxAnchor('destroy');
 

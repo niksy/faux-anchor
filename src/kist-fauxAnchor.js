@@ -430,6 +430,29 @@
 
 	});
 
+	/**
+	 * @param  {Object} options
+	 *
+	 * @return {Object}
+	 */
+	function constructOptions ( options ) {
+
+		var temp = {};
+
+		/**
+		 * Provide aliases to "basic" and "alternative"
+		 */
+		if ( options.primary ) {
+			temp.basic = options.primary;
+		}
+		if ( options.secondary ) {
+			temp.alternative = options.secondary;
+		}
+
+		return $.extend({}, options, temp);
+
+	}
+
 	$.kist = $.kist || {};
 
 	$.fn[plugin.name] = function ( options ) {
@@ -442,6 +465,8 @@
 				}
 			});
 		}
+
+		options = constructOptions(options);
 
 		return this.each(function () {
 			if (!$.data(this, plugin.name)) {

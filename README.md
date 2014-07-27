@@ -33,12 +33,16 @@ Arguments: [Default action], [Element]
 
 Custom action to trigger on basic action (default click, left mouse button click, etc.).
 
+Alias for this method is `primary`.
+
 ###### alternative
 
 Type: `Function`  
 Arguments: [Alternative action], [Element]
 
 Custom action to trigger on alternative action (⌃ or ⌘ + left mouse button click, middle mouse button click, etc.).
+
+Alias for this method is `secondary`.
 
 ###### condition
 
@@ -101,6 +105,23 @@ $('.element').fauxAnchor({
 		done();
 	},
 	alternative: function ( done, el ) {
+		// Do something
+		$(this).addClass('bar');
+		done();
+	}
+});
+```
+
+Set custom actions as aliases.
+
+```js
+$('.element').fauxAnchor({
+	primary: function ( done, el ) {
+		// Do something
+		$(this).addClass('foo');
+		done();
+	},
+	secondary: function ( done, el ) {
 		// Do something
 		$(this).addClass('bar');
 		done();
