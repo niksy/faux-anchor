@@ -1,4 +1,4 @@
-/*! kist-fauxAnchor 0.4.3 - Simulate default anchor action. | Author: Ivan Nikolić, 2014 | License: MIT */
+/*! kist-fauxAnchor 0.4.4 - Simulate default anchor action. | Author: Ivan Nikolić, 2014 | License: MIT */
 ;(function ( $, window, document, undefined ) {
 
 	var plugin = {
@@ -439,6 +439,7 @@
 	function constructOptions ( options ) {
 
 		var temp = {};
+		options = options || {};
 
 		/**
 		 * Provide aliases to "basic" and "alternative"
@@ -471,7 +472,7 @@
 
 		return this.each(function () {
 			if (!$.data(this, plugin.name)) {
-				$.data(this, plugin.name, new FauxAnchor( this, options ));
+				$.data(this, plugin.name, new FauxAnchor(this, options));
 			}
 		});
 
