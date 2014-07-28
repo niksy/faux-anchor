@@ -438,6 +438,7 @@
 	function constructOptions ( options ) {
 
 		var temp = {};
+		options = options || {};
 
 		/**
 		 * Provide aliases to "basic" and "alternative"
@@ -470,7 +471,7 @@
 
 		return this.each(function () {
 			if (!$.data(this, plugin.name)) {
-				$.data(this, plugin.name, new FauxAnchor( this, options ));
+				$.data(this, plugin.name, new FauxAnchor(this, options));
 			}
 		});
 
