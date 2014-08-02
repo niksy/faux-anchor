@@ -71,7 +71,7 @@
 		$('.second').fauxAnchor();
 
 		$('.third').fauxAnchor({
-			condition: function ( target ) {
+			condition: function ( e ) {
 				return window.matchMedia('screen and (max-width:900px)').matches;
 			}
 		});
@@ -79,19 +79,19 @@
 		$('.fourth').fauxAnchor();
 
 		$('.fifth').fauxAnchor({
-			basic: function ( el, done ) {
+			basic: function ( e, done ) {
 				console.log('Basic action');
 			},
-			alternative: function ( el, done ) {
+			alternative: function ( e, done ) {
 				console.log('Alternative action');
 			}
 		});
 
 		$('.sixth').fauxAnchor({
-			basic: function ( el, done ) {
+			basic: function ( e, done ) {
 				console.log('Basic action');
 			},
-			alternative: function ( el, done ) {
+			alternative: function ( e, done ) {
 				console.log('Alternative action');
 			}
 		});

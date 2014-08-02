@@ -48,38 +48,38 @@
 	<script>
 
 		$('.anchor').fauxAnchor({
-			basic: function ( done, e ) {
+			basic: function ( e, done ) {
 				console.log('Basic action');
 			},
-			alternative: function ( done, e ) {
+			alternative: function ( e, done ) {
 				console.log('Alternative action');
 			}
 		});
 
 		$('.basic').fauxAnchor({
-			basic: function ( done, e ) {
+			basic: function ( e, done ) {
 				console.log('Basic action');
 			},
-			alternative: function ( done, e ) {
+			alternative: function ( e, done ) {
 				console.log('Alternative action');
 			}
 		});
 
 		$('.button').fauxAnchor({
-			basic: function ( done, e ) {
+			basic: function ( e, done ) {
 				console.log('Basic action');
 			},
-			alternative: function ( done, e ) {
+			alternative: function ( e, done ) {
 				console.log('Alternative action');
 			}
 		});
 
 		$('.basic-unfocusable').fauxAnchor({
 			focus: false,
-			basic: function ( done, e ) {
+			basic: function ( e, done ) {
 				console.log('Basic action');
 			},
-			alternative: function ( done, e ) {
+			alternative: function ( e, done ) {
 				console.log('Alternative action');
 			}
 		});

@@ -48,38 +48,38 @@
 	<script>
 
 		$('.anchor').fauxAnchor({
-			primary: function ( el, done ) {
+			primary: function ( e, done ) {
 				console.log('Basic action');
 			},
-			secondary: function ( el, done ) {
+			secondary: function ( e, done ) {
 				console.log('Alternative action');
 			}
 		});
 
 		$('.basic').fauxAnchor({
-			primary: function ( el, done ) {
+			primary: function ( e, done ) {
 				console.log('Basic action');
 			},
-			secondary: function ( el, done ) {
+			secondary: function ( e, done ) {
 				console.log('Alternative action');
 			}
 		});
 
 		$('.button').fauxAnchor({
-			primary: function ( el, done ) {
+			primary: function ( e, done ) {
 				console.log('Basic action');
 			},
-			secondary: function ( el, done ) {
+			secondary: function ( e, done ) {
 				console.log('Alternative action');
 			}
 		});
 
 		$('.basic-unfocusable').fauxAnchor({
 			focus: false,
-			primary: function ( el, done ) {
+			primary: function ( e, done ) {
 				console.log('Basic action');
 			},
-			secondary: function ( el, done ) {
+			secondary: function ( e, done ) {
 				console.log('Alternative action');
 			}
 		});

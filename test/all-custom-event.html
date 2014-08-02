@@ -52,39 +52,39 @@
 		}
 
 		$('.anchor').fauxAnchor({
-			basic: function ( done, e ) {
+			basic: function ( e, done ) {
 				console.log(isOriginalElement($(this), $(e.target)));
 			},
-			alternative: function ( done, e ) {
+			alternative: function ( e, done ) {
 				console.log(isOriginalElement($(this), $(e.target)));
 				done();
 			}
 		});
 
 		$('.basic').fauxAnchor({
-			basic: function ( done, e ) {
+			basic: function ( e, done ) {
 				console.log(isOriginalElement($(this), $(e.target)));
 			},
-			alternative: function ( done, e ) {
+			alternative: function ( e, done ) {
 				console.log(isOriginalElement($(this), $(e.target)));
 			}
 		});
 
 		$('.button').fauxAnchor({
-			basic: function ( done, e ) {
+			basic: function ( e, done ) {
 				console.log(isOriginalElement($(this), $(e.target)));
 			},
-			alternative: function ( done, e ) {
+			alternative: function ( e, done ) {
 				console.log(isOriginalElement($(this), $(e.target)));
 			}
 		});
 
 		$('.basic-unfocusable').fauxAnchor({
 			focus: false,
-			basic: function ( done, e ) {
+			basic: function ( e, done ) {
 				console.log(isOriginalElement($(this), $(e.target)));
 			},
-			alternative: function ( done, e ) {
+			alternative: function ( e, done ) {
 				console.log(isOriginalElement($(this), $(e.target)));
 			}
 		});

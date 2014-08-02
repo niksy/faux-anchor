@@ -295,6 +295,41 @@
 		}
 	};
 
+	/**
+	 * @param  {Mixed} options
+	 *
+	 * @return {Object}
+	 */
+	function constructOptions ( options ) {
+
+		var temp = {};
+
+		if ( typeof(options) === 'object' ) {
+
+			/**
+			 * Provide aliases to "basic" and "alternative" methods
+			 */
+			if ( options.primary ) {
+				temp.basic = options.primary;
+			}
+			if ( options.secondary ) {
+				temp.alternative = options.secondary;
+			}
+
+			temp = $.extend({}, options, temp);
+
+		}
+
+		return temp;
+
+	}
+
+	/**
+	 * @class
+	 *
+	 * @param {Element} element
+	 * @param {Object} options
+	 */
 	function FauxAnchor ( element, options ) {
 
 		this.element = element;
@@ -320,7 +355,6 @@
 		action: function ( url, target, e ) {
 
 			var type = target === '_blank' ? 'alternative' : 'basic';
-			var domEl = this.dom.el[0];
 
 			/**
 			 * Exit early if:
@@ -331,13 +365,13 @@
 			 */
 			if (
 				( this.options.type !== 'anchor' && $(e.target).closest('a').length ) ||
-				!this.options.condition.call(domEl, e) ||
+				!this.options.condition.call(this.element, e) ||
 				!url
 			) {
 				return;
 			}
 
-			return this.options[type].call(domEl, $.proxy(this[type], this, url), e);
+			return this.options[type].call(this.element, e, $.proxy(this[type], this, url));
 
 		},
 
@@ -393,31 +427,31 @@
 			/**
 			 * Basic action
 			 *
-			 * @this {FauxAnchor#dom.el[0]}
-			 * @param  {Function} done
+			 * @this {FauxAnchor#element}
 			 * @param  {Object} e
+			 * @param  {Function} done
 			 *
 			 * @return {}
 			 */
-			basic: function ( done, e ) {
+			basic: function ( e, done ) {
 				done();
 			},
 
 			/**
 			 * ALternative action
 			 *
-			 * @this {FauxAnchor#dom.el[0]}
-			 * @param  {Function} done
+			 * @this {FauxAnchor#element}
 			 * @param  {Object} e
+			 * @param  {Function} done
 			 *
 			 * @return {}
 			 */
-			alternative: function ( done, e ) {
+			alternative: function ( e, done ) {
 				done();
 			},
 
 			/**
-			 * @this {FauxAnchor#dom.el[0]}
+			 * @this {FauxAnchor#element}
 			 * @param  {Object} e
 			 *
 			 * @return {Boolean}
@@ -429,30 +463,6 @@
 		}
 
 	});
-
-	/**
-	 * @param  {Object} options
-	 *
-	 * @return {Object}
-	 */
-	function constructOptions ( options ) {
-
-		var temp = {};
-		options = options || {};
-
-		/**
-		 * Provide aliases to "basic" and "alternative"
-		 */
-		if ( options.primary ) {
-			temp.basic = options.primary;
-		}
-		if ( options.secondary ) {
-			temp.alternative = options.secondary;
-		}
-
-		return $.extend({}, options, temp);
-
-	}
 
 	$.kist = $.kist || {};
 

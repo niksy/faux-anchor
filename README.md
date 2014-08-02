@@ -29,7 +29,7 @@ All methods have their `this` property pointed to element on which the plugin wa
 ###### basic
 
 Type: `Function`  
-Arguments: [Default action], [Element]
+Arguments: [Event], [Default action]
 
 Custom action to trigger on basic action (default click, left mouse button click, etc.).
 
@@ -38,7 +38,7 @@ Alias for this method is `primary`.
 ###### alternative
 
 Type: `Function`  
-Arguments: [Alternative action], [Element]
+Arguments: [Event], [Alternative action]
 
 Custom action to trigger on alternative action (⌃ or ⌘ + left mouse button click, middle mouse button click, etc.).
 
@@ -47,7 +47,7 @@ Alias for this method is `secondary`.
 ###### condition
 
 Type: `Function`  
-Arguments: [Element]
+Arguments: [Event]
 
 If function returns true, link will be activated.
 
@@ -99,12 +99,12 @@ Set custom actions.
 
 ```js
 $('.element').fauxAnchor({
-	basic: function ( done, el ) {
+	basic: function ( e, done ) {
 		// Do something
 		$(this).addClass('foo');
 		done();
 	},
-	alternative: function ( done, el ) {
+	alternative: function ( e, done ) {
 		// Do something
 		$(this).addClass('bar');
 		done();
@@ -116,12 +116,12 @@ Set custom actions as aliases.
 
 ```js
 $('.element').fauxAnchor({
-	primary: function ( done, el ) {
+	primary: function ( e, done ) {
 		// Do something
 		$(this).addClass('foo');
 		done();
 	},
-	secondary: function ( done, el ) {
+	secondary: function ( e, done ) {
 		// Do something
 		$(this).addClass('bar');
 		done();
@@ -133,7 +133,7 @@ Set condition upon which links should be activated.
 
 ```js
 $('.element').fauxAnchor({
-	condition: function ( el ) {
+	condition: function ( e ) {
 		return window.matchMedia('screen and (max-width:600px)').matches;
 	}
 });
