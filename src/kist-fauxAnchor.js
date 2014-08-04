@@ -255,7 +255,7 @@
 		 *
 		 * @return {String}
 		 */
-		href: function ( type ) {
+		href: function ( type ) {
 			return this.dom.el[type === 'anchor' ? 'attr' : 'data']('href') || '';
 		},
 
