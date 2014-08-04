@@ -1,4 +1,4 @@
-/*! kist-fauxAnchor 0.4.5 - Simulate default anchor action. | Author: Ivan Nikolić, 2014 | License: MIT */
+/*! kist-fauxAnchor 0.4.6 - Simulate default anchor action. | Author: Ivan Nikolić, 2014 | License: MIT */
 ;(function ( $, window, document, undefined ) {
 
 	var plugin = {
@@ -256,7 +256,7 @@
 		 *
 		 * @return {String}
 		 */
-		href: function ( type ) {
+		href: function ( type ) {
 			return this.dom.el[type === 'anchor' ? 'attr' : 'data']('href') || '';
 		},
 
