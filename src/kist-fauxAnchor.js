@@ -24,14 +24,17 @@
 
 			// Make unfocusable elements focusable
 			if ( this.options.type === 'unfocusable' && this.options.focus ) {
-				this.dom.el.attr('tabindex', 0);
+				this.dom.el.attr({
+					'tabindex': 0,
+					'role': 'link'
+				});
 			}
 		},
 		destroy: function () {
 			this.dom.el.removeClass(plugin.classes.item);
 
 			if ( this.options.type === 'unfocusable' && this.options.focus ) {
-				this.dom.el.removeAttr('tabindex');
+				this.dom.el.removeAttr('tabindex role');
 			}
 		}
 	};
