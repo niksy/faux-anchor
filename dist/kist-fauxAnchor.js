@@ -1,4 +1,4 @@
-/*! kist-fauxAnchor 0.4.8 - Simulate default anchor action. | Author: Ivan Nikolić, 2014 | License: MIT */
+/*! kist-fauxAnchor 0.4.9 - Simulate default anchor action. | Author: Ivan Nikolić, 2014 | License: MIT */
 ;(function ( $, window, document, undefined ) {
 
 	var plugin = {
@@ -88,6 +88,9 @@
 		if ( event === 'click' ) {
 			if ( (!webkit && !touch) || (ielte8 && touch) ) {
 				state++;
+			}
+			if ( iemobilewp ) {
+				state--;
 			}
 		}
 
