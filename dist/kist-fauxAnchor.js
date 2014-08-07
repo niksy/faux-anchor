@@ -1,4 +1,4 @@
-/*! kist-fauxAnchor 0.4.7 - Simulate default anchor action. | Author: Ivan Nikolić, 2014 | License: MIT */
+/*! kist-fauxAnchor 0.4.8 - Simulate default anchor action. | Author: Ivan Nikolić, 2014 | License: MIT */
 ;(function ( $, window, document, undefined ) {
 
 	var plugin = {
@@ -76,13 +76,14 @@
 	 */
 	function stopEntryAction ( event, key, e ) {
 
-		var webkit  = env.browser.webkit.all;
-		var safari  = env.browser.safari.all;
-		var ielte8  = env.browser.ie.lte8;
-		var touch   = env.feature.touch;
-		var type    = this.options.type;
-		var metaKey = env.input.metaKey(e);
-		var state   = 0;
+		var webkit     = env.browser.webkit.all;
+		var safari     = env.browser.safari.all;
+		var ielte8     = env.browser.ie.lte8;
+		var iemobilewp = env.browser.ie.mobileWP;
+		var touch      = env.feature.touch;
+		var type       = this.options.type;
+		var metaKey    = env.input.metaKey(e);
+		var state      = 0;
 
 		if ( event === 'click' ) {
 			if ( (!webkit && !touch) || (ielte8 && touch) ) {
@@ -91,7 +92,7 @@
 		}
 
 		if ( event === 'mousedown' ) {
-			if ( webkit || touch && key !== 2 ) {
+			if ( webkit || iemobilewp || touch && key !== 2 ) {
 				state++;
 			}
 			if ( ielte8 && touch ) {
@@ -189,7 +190,8 @@
 				all: 'MozAppearance' in document.documentElement.style
 			},
 			ie: {
-				lte8: document.all && !document.addEventListener
+				lte8: document.all && !document.addEventListener,
+				mobileWP: /IEMobile/i.test(navigator.userAgent)
 			}
 		},
 		feature: {
