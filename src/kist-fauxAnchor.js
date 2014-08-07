@@ -88,6 +88,9 @@
 			if ( (!webkit && !touch) || (ielte8 && touch) ) {
 				state++;
 			}
+			if ( iemobilewp ) {
+				state--;
+			}
 		}
 
 		if ( event === 'mousedown' ) {
