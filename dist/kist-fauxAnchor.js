@@ -1,4 +1,4 @@
-/*! kist-fauxAnchor 0.4.9 - Simulate default anchor action. | Author: Ivan Nikolić, 2014 | License: MIT */
+/*! kist-fauxAnchor 0.4.10 - Simulate default anchor action. | Author: Ivan Nikolić, 2014 | License: MIT */
 ;(function ( $, window, document, undefined ) {
 
 	var plugin = {
@@ -12,9 +12,12 @@
 		}
 	};
 	plugin.classes = {
-		item: plugin.ns.css + '-item'
+		item: plugin.ns.css + '-item',
+		contextMenu: plugin.ns.css + '-contextMenu',
+		contextMenuItem: plugin.ns.css + '-contextMenu-item'
 	};
 	plugin.publicMethods = ['destroy','prevent','unprevent'];
+	plugin.instancesCount = 0;
 
 	var dom = {
 		setup: function () {
@@ -30,12 +33,24 @@
 					'role': 'link'
 				});
 			}
+
+			// Setup context menu for non-achor elements
+			if ( contextMenu.passesTest.call(this) ) {
+				this.dom.el.attr({
+					'contextmenu': plugin.classes.contextMenu
+				});
+			}
+
 		},
 		destroy: function () {
 			this.dom.el.removeClass(plugin.classes.item);
 
 			if ( this.options.type === 'unfocusable' && this.options.focus ) {
 				this.dom.el.removeAttr('tabindex role');
+			}
+
+			if ( contextMenu.passesTest.call(this) ) {
+				this.dom.el.removeAttr('contextmenu');
 			}
 		}
 	};
@@ -46,6 +61,15 @@
 			this.dom.el.on('click' + this.instance.ens, $.proxy(entryAction, this));
 			this.dom.el.on('mousedown' + this.instance.ens, $.proxy(entryAction, this));
 			this.dom.el.on('keydown' + this.instance.ens, $.proxy(entryAction, this));
+
+			if ( contextMenu.passesTest.call(this) ) {
+
+				this.dom.el.on('contextmenu' + this.instance.ens, $.proxy(function ( e ) {
+					contextMenu.common.instance = this;
+					contextMenu.common.event = e;
+				}, this));
+
+			}
 
 		},
 		destroy: function () {
@@ -59,9 +83,83 @@
 			this.instance     = this.instance || {};
 			this.instance.id  = instance.id++;
 			this.instance.ens = plugin.ns.event + '.' + this.instance.id;
+			plugin.instancesCount++;
 		},
 		destroy: function () {
 			delete $.data(this.element)[plugin.name];
+			plugin.instancesCount--;
+		}
+	};
+
+	var contextMenu = {
+		common: {
+			dom: $(),
+			event: null,
+			instance: null
+		},
+		setup: false,
+		passesTest: function () {
+			return this.options.type !== 'anchor' && env.feature.contextMenu;
+		},
+		shouldSetup: function () {
+			return contextMenu.passesTest.call(this) && !contextMenu.setup;
+		},
+		shouldDestroy: function () {
+			return !plugin.instancesCount && contextMenu.setup;
+		},
+		instance: {
+			setup: function () {
+				contextMenu.setup = true;
+			},
+			destroy: function () {
+				contextMenu.setup = false;
+				contextMenu.common.instance = null;
+			}
+		},
+		dom: {
+			setup: function () {
+
+				var contextMenuItem = plugin.classes.contextMenuItem;
+				var menuItems = [
+					{
+						label: 'Open Link in New Tab',
+						'class': contextMenuItem + ' ' + contextMenuItem + '--newTab'
+					},
+					{
+						label: 'Open Link in New Window',
+						'class': contextMenuItem + ' ' + contextMenuItem + '--newWindow'
+					}
+				];
+
+				contextMenu.common.dom = $('<menu />', {
+					type: 'context',
+					id: plugin.classes.contextMenu
+				}).appendTo('body');
+
+				$.each(menuItems, function ( index, item ) {
+					contextMenu.common.dom.append($('<menuitem />', item));
+				});
+
+			},
+			destroy: function () {
+				contextMenu.common.dom.remove();
+				contextMenu.common.dom = $();
+			}
+		},
+		events: {
+			setup: function () {
+
+				contextMenu.common.dom.on('click' + plugin.ns.event, '.' + plugin.classes.contextMenuItem,  function ( e ) {
+					var _this = contextMenu.common.instance;
+					var _e = contextMenu.common.event;
+					_this.options.alternative.call(_this.element, _e, $.proxy(_this.alternative, _this, abstract.href.call(_this, _this.options.type)));
+				});
+
+			},
+			destroy: function () {
+				contextMenu.common.dom.off(plugin.ns.event);
+				contextMenu.common.event = null;
+			}
 		}
 	};
 
@@ -200,7 +298,10 @@
 		feature: {
 
 			// @hattip https://github.com/Modernizr/Modernizr/blob/master/feature-detects/touchevents.js
-			touch: (('Modernizr' in window) && Modernizr.touchevents) || (('ontouchstart' in window) || ('DocumentTouch' in window) && document instanceof DocumentTouch)
+			touch: (('Modernizr' in window) && Modernizr.touchevents) || (('ontouchstart' in window) || ('DocumentTouch' in window) && document instanceof DocumentTouch),
+
+			// @hattip https://github.com/Modernizr/Modernizr/blob/master/feature-detects/contextmenu.js
+			contextMenu: (('Modernizr' in window) && Modernizr.contextmenu) || ('contextMenu' in document.documentElement && 'HTMLMenuItemElement' in window)
 		},
 		input: {
 			metaKey: function ( e ) {
@@ -348,6 +449,12 @@
 		dom.setup.call(this);
 		events.setup.call(this);
 
+		if ( contextMenu.shouldSetup.call(this) ) {
+			contextMenu.instance.setup.call(this);
+			contextMenu.dom.setup.call(this);
+			contextMenu.events.setup.call(this);
+		}
+
 	}
 
 	$.extend(FauxAnchor.prototype, {
@@ -410,9 +517,17 @@
 		},
 
 		destroy: function () {
+
 			dom.destroy.call(this);
 			events.destroy.call(this);
 			instance.destroy.call(this);
+
+			if ( contextMenu.shouldDestroy.call(this) ) {
+				contextMenu.dom.destroy.call(this);
+				contextMenu.events.destroy.call(this);
+				contextMenu.instance.destroy.call(this);
+			}
+
 		},
 
 		prevent: function () {
