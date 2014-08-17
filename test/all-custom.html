@@ -36,6 +36,10 @@
 			<span>Basic, with link inside</span>
 			<a href="#link">Link</a>
 		</li>
+		<li class="basic-condition" data-href="#faux2">
+			<span>Basic, with condition 'screen and (max-width:900px)'</span>
+			<a href="#link">Test</a>
+		</li>
 		<li>
 			<button type="button" class="button" data-href="#faux">
 				<span>Button</span>
@@ -75,6 +79,15 @@
 			},
 			alternative: function ( e, done ) {
 				console.log('Alternative action');
+			}
+		});
+
+		$('.basic-condition').fauxAnchor({
+			condition: function ( e ) {
+				if ( 'matchMedia' in window ) {
+					return window.matchMedia('screen and (max-width:900px)').matches;
+				}
+				return true;
 			}
 		});
 

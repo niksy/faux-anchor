@@ -13,7 +13,6 @@
 	plugin.classes = {
 		item: plugin.ns.css + '-item',
 		contextMenu: plugin.ns.css + '-contextMenu',
-		contextMenuDummy: plugin.ns.css + '-contextMenu-dummy',
 		contextMenuItem: plugin.ns.css + '-contextMenu-item'
 	};
 	plugin.publicMethods = ['destroy','prevent','unprevent'];
@@ -39,12 +38,6 @@
 				this.dom.el.attr({
 					'contextmenu': plugin.classes.contextMenu
 				});
-
-				this.dom.el
-					.find('a')
-					.attr({
-						'contextmenu': plugin.classes.contextMenuDummy
-					});
 			}
 
 		},
@@ -71,8 +64,17 @@
 			if ( contextMenu.passesTest.call(this) ) {
 
 				this.dom.el.on('contextmenu' + this.instance.ens, $.proxy(function ( e ) {
-					contextMenu.common.instance = this;
-					contextMenu.common.event = e;
+
+					if ( !this.shouldActivateAction(abstract.href.call(this, this.options.type), e) ) {
+						this.dom.el.removeAttr('contextmenu');
+					} else {
+						if ( !this.dom.el.attr('contextmenu') ) {
+							this.dom.el.attr('contextmenu', plugin.classes.contextMenu);
+						}
+						contextMenu.common.instance = this;
+						contextMenu.common.event = e;
+					}
+
 				}, this));
 
 			}
@@ -100,7 +102,6 @@
 	var contextMenu = {
 		common: {
 			dom: $(),
-			domDummy: $(),
 			event: null,
 			instance: null
 		},
@@ -143,28 +144,32 @@
 					id: plugin.classes.contextMenu
 				}).appendTo('body');
 
-				contextMenu.common.domDummy = $('<menu />', {
-					type: 'context',
-					id: plugin.classes.contextMenuDummy
-				}).appendTo('body');
-
 				$.each(menuItems, function ( index, item ) {
 					contextMenu.common.dom.append($('<menuitem />', item));
 				});
 
 			},
 			destroy: function () {
-				contextMenu.common.dom.add(contextMenu.common.domDummy).remove();
-				contextMenu.common.dom = contextMenu.common.domDummy = $();
+				contextMenu.common.dom.remove();
+				contextMenu.common.dom = $();
 			}
 		},
 		events: {
 			setup: function () {
 
 				contextMenu.common.dom.on('click' + plugin.ns.event, '.' + plugin.classes.contextMenuItem,  function ( e ) {
+
 					var _this = contextMenu.common.instance;
 					var _e = contextMenu.common.event;
-					_this.options.alternative.call(_this.element, _e, $.proxy(_this.alternative, _this, abstract.href.call(_this, _this.options.type)));
+
+					_this.simulateAlternative = true;
+
+					_this.action(
+						abstract.href.call(_this, _this.options.type),
+						'_blank',
+						_e
+					);
+
 				});
 
 			},
@@ -484,6 +489,22 @@
 
 			var type = target === '_blank' ? 'alternative' : 'basic';
 
+			if ( !this.shouldActivateAction(url, e) ) {
+				return;
+			}
+
+			return this.options[type].call(this.element, e, $.proxy(this[type], this, url));
+
+		},
+
+		/**
+		 * @param  {String} url
+		 * @param  {Object} e
+		 *
+		 * @return {Boolean}
+		 */
+		shouldActivateAction: function ( url, e ) {
+
 			/**
 			 * Exit early if:
 			 *   * current or closest element to clicked one is real anchor
@@ -496,10 +517,9 @@
 				!this.options.condition.call(this.element, e) ||
 				!url
 			) {
-				return;
+				return false;
 			}
-
-			return this.options[type].call(this.element, e, $.proxy(this[type], this, url));
+			return true;
 
 		},
 
