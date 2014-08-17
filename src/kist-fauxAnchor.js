@@ -13,6 +13,7 @@
 	plugin.classes = {
 		item: plugin.ns.css + '-item',
 		contextMenu: plugin.ns.css + '-contextMenu',
+		contextMenuDummy: plugin.ns.css + '-contextMenu-dummy',
 		contextMenuItem: plugin.ns.css + '-contextMenu-item'
 	};
 	plugin.publicMethods = ['destroy','prevent','unprevent'];
@@ -38,6 +39,12 @@
 				this.dom.el.attr({
 					'contextmenu': plugin.classes.contextMenu
 				});
+
+				this.dom.el
+					.find('a')
+					.attr({
+						'contextmenu': plugin.classes.contextMenuDummy
+					});
 			}
 
 		},
@@ -93,12 +100,13 @@
 	var contextMenu = {
 		common: {
 			dom: $(),
+			domDummy: $(),
 			event: null,
 			instance: null
 		},
 		setup: false,
 		passesTest: function () {
-			return this.options.type !== 'anchor' && env.feature.contextMenu;
+			return this.options.contextMenu && this.options.type !== 'anchor' && env.feature.contextMenu;
 		},
 		shouldSetup: function () {
 			return contextMenu.passesTest.call(this) && !contextMenu.setup;
@@ -135,14 +143,19 @@
 					id: plugin.classes.contextMenu
 				}).appendTo('body');
 
+				contextMenu.common.domDummy = $('<menu />', {
+					type: 'context',
+					id: plugin.classes.contextMenuDummy
+				}).appendTo('body');
+
 				$.each(menuItems, function ( index, item ) {
 					contextMenu.common.dom.append($('<menuitem />', item));
 				});
 
 			},
 			destroy: function () {
-				contextMenu.common.dom.remove();
-				contextMenu.common.dom = $();
+				contextMenu.common.dom.add(contextMenu.common.domDummy).remove();
+				contextMenu.common.dom = contextMenu.common.domDummy = $();
 			}
 		},
 		events: {
@@ -541,9 +554,12 @@
 		defaults: {
 
 			/**
+			 * Should the unfocusable element have context menu
+			 */
+			contextMenu: true,
+
+			/**
 			 * Should the unfocusable element be focusable
-			 *
-			 * @type {Boolean}
 			 */
 			focus: true,
 

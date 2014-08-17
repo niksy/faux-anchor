@@ -57,6 +57,12 @@ Type: `Boolean`
 
 Should the unfocusable element be focusable.
 
+###### contextMenu
+
+Type: `Boolean`  
+
+Should the unfocusable element have [context menu](https://hacks.mozilla.org/2011/11/html5-context-menus-in-firefox-screencast-and-code/).
+
 ##### Options defined as `String`
 
 Type: `String`
