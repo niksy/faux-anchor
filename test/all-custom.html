@@ -36,6 +36,13 @@
 			<span>Basic, with link inside</span>
 			<a href="#link">Link</a>
 		</li>
+		<li class="basic-basic" data-href="#faux">
+			<span>Basic, with another basic inside</span>
+			<hr />
+			<div class="basic" data-href="#faux2">
+				<span>Basic inside</span>
+			</div>
+		</li>
 		<li class="basic-condition" data-href="#faux2">
 			<span>Basic, with condition 'screen and (max-width:900px)'</span>
 			<a href="#link">Test</a>
@@ -79,6 +86,15 @@
 			},
 			alternative: function ( e, done ) {
 				console.log('Alternative action');
+			}
+		});
+
+		$('.basic-basic').fauxAnchor({
+			basic: function ( e, done ) {
+				console.log('Basic action, with basic inside');
+			},
+			alternative: function ( e, done ) {
+				console.log('Alternative action, with basic inside');
 			}
 		});
 

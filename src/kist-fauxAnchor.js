@@ -65,6 +65,8 @@
 
 				this.dom.el.on('contextmenu' + this.instance.ens, $.proxy(function ( e ) {
 
+					stopPropagation(this.dom.el, e, this.options.type);
+
 					if ( !this.shouldActivateAction(abstract.href.call(this, this.options.type), e) ) {
 						this.dom.el.removeAttr('contextmenu');
 					} else {
@@ -181,6 +183,31 @@
 	};
 
 	/**
+	 * @param  {jQuery} el
+	 * @param  {Object} e
+	 * @param  {String} type
+	 *
+	 * @return {}
+	 */
+	function stopPropagation ( el, e, type ) {
+
+		/**
+		 * Stop propagation if:
+		 *   * element is not anchor
+		 *   * element has faux anchor as parent
+		 *   * event propagation is not already stopped
+		 */
+		if (
+			type !== 'anchor' &&
+			el.parents('.' + plugin.classes.item).length &&
+			!e.isPropagationStopped()
+		) {
+			e.stopPropagation();
+		}
+
+	}
+
+	/**
 	 * Stop executing entry action
 	 *
 	 * @param  {String} event
@@ -279,6 +306,8 @@
 		}
 
 		this.simulateAlternative = abstract.simulateAlternative.call(this, type, e);
+
+		stopPropagation(this.dom.el, e, type);
 
 		this.action(
 			abstract.href.call(this, type),
