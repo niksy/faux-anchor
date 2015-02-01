@@ -1,15 +1,16 @@
-<!doctype html>
-<html>
-<head>
-	<meta charset="utf-8" />
-	<title>Anchor, click</title>
-</head>
-<body>
+{{> top title="Tag, click"}}
 
-	<p>This test only checks for behavior between browsers when <code>click</code> anchor event is prevented.</p>
+	<style>
+		.link {
+			color:#fff;
+			background:#f00;
+		}
+	</style>
+
+	<p>This test only checks for behavior between browsers when <code>click</code> non-anchor event is prevented.</p>
 
 	<div class="sandbox">
-		<a class="link" href="http://google.com">Test</a>
+		<span class="link" href="http://google.com">Test</span>
 		<p class="result"></p>
 	</div>
 
@@ -33,16 +34,18 @@
 						<h4>Firefox</h4>
 						<ul>
 							<li>Default: yes; reports 1</li>
-							<li>Middle mouse click: no; reports nothing; opens new tab</li>
+							<li>Middle mouse click: yes; reports nothing</li>
 							<li>Command/control click: yes; reports 1</li>
+							<li><b>Event object reports <code>e.target</code> as <code>e.currentTarget</code> when run on button element</b></li>
 						</ul>
 					</li>
 					<li>
 						<h4>IE 8</h4>
 						<ul>
 							<li>Default: yes; reports 0</li>
-							<li>Middle mouse click: no; reports nothing; opens new tab</li>
-							<li>Command/control click: no; reports nothing; opens new tab</li>
+							<li>Middle mouse click: yes; reports nothing</li>
+							<li>Command/control click: yes; reports nothing</li>
+							<li><b>Event object reports <code>e.target</code> as <code>e.currentTarget</code> when run on button element</b></li>
 						</ul>
 					</li>
 					<li>
@@ -66,8 +69,6 @@
 		</ul>
 	</div>
 
-	<script src="../bower_components/jquery/dist/jquery.min.js"></script>
-
 	<script>
 
 		function result ( data ) {
@@ -81,5 +82,4 @@
 
 	</script>
 
-</body>
-</html>
+{{> bottom}}

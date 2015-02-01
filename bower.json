@@ -1,13 +1,12 @@
 {
-  "name": "kist-fauxAnchor",
+  "name": "kist-fauxanchor",
   "version": "0.4.13",
   "description": "Simulate default anchor action.",
   "authors": [
-    "Ivan Nikolić"
+    "Ivan Nikolić <niksy5@gmail.com> (http://ivannikolic.com/)"
   ],
   "license": "MIT",
-  "main": "dist/kist-fauxAnchor.min.js",
-  "homepage": "https://github.com/niksy/kist-fauxAnchor",
+  "main": "dist/kist-fauxanchor.js",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -15,17 +14,27 @@
     "test",
     "tests",
     "src",
+    "lib",
     "Gruntfile.js",
     "package.json"
   ],
   "dependencies": {
-    "jquery": ">=1"
+    "jquery": "~1.11.2"
   },
   "devDependencies": {
     "jquery": "1"
   },
   "keywords": [
+    "kist",
     "faux",
-    "anchor"
+    "anchor",
+    "browserify",
+    "simulate",
+    "mouse"
+  ],
+  "homepage": "https://github.com/niksy/kist-fauxanchor",
+  "moduleType": [
+    "amd",
+    "globals"
   ]
 }

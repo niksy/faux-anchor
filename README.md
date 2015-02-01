@@ -1,4 +1,4 @@
-# kist-fauxAnchor
+# kist-fauxanchor
 
 Simulate default anchor action.
 
@@ -7,12 +7,14 @@ When run on anchor elements, it "hijacks" standard action and gives you option o
 ## Installation
 
 ```sh
-bower install niksy/kist-fauxAnchor
+npm install kist-fauxanchor --save
+
+bower install kist-fauxanchor --save
 ```
 
 ## API
 
-### `Element.fauxAnchor([options])`
+### `$Element.fauxAnchor([options])`
 
 Returns: `jQuery`
 

@@ -1,21 +1,9 @@
-<!doctype html>
-<html>
-<head>
-	<meta charset="utf-8" />
-	<title>Tag, mousedown</title>
-	<style>
-		.link {
-			color:#fff;
-			background:#f00;
-		}
-	</style>
-</head>
-<body>
+{{> top title="Anchor mousedown"}}
 
-	<p>This test only checks for behavior between browsers when <code>mousedown</code> non-anchor event is prevented. <code>click</code> event is also prevented.</p>
+	<p>This test only checks for behavior between browsers when <code>mousedown</code> anchor event is prevented. <code>click</code> event is also prevented since it’s anchors default action.</p>
 
 	<div class="sandbox">
-		<span class="link" href="http://google.com">Test</span>
+		<a class="link" href="http://google.com">Test</a>
 		<p class="result"></p>
 	</div>
 
@@ -39,18 +27,16 @@
 						<h4>Firefox</h4>
 						<ul>
 							<li>Default: yes; reports 1</li>
-							<li>Middle mouse click: yes; reports 2</li>
+							<li>Middle mouse click: no; reports 2; opens new tab</li>
 							<li>Command/control click: yes; reports 1</li>
-							<li><b>Event object reports <code>e.target</code> as <code>e.currentTarget</code> when run on button element</b></li>
 						</ul>
 					</li>
 					<li>
 						<h4>IE 8</h4>
 						<ul>
 							<li>Default: yes; reports 1</li>
-							<li>Middle mouse click: yes; reports 2</li>
-							<li>Command/control click: yes; reports 1</li>
-							<li><b>Event object reports <code>e.target</code> as <code>e.currentTarget</code> when run on button element</b></li>
+							<li>Middle mouse click: no; reports 2; opens new tab</li>
+							<li>Command/control click: no; reports 1; opens new tab</li>
 						</ul>
 					</li>
 					<li>
@@ -74,8 +60,6 @@
 		</ul>
 	</div>
 
-	<script src="../bower_components/jquery/dist/jquery.min.js"></script>
-
 	<script>
 
 		function result ( data ) {
@@ -93,5 +77,4 @@
 
 	</script>
 
-</body>
-</html>
+{{> bottom}}
