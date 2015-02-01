@@ -1,18 +1,13 @@
-<!doctype html>
-<html>
-<head>
-	<meta charset="utf-8" />
-	<title>Tag, click</title>
+{{> top title="Tag, mousedown"}}
+
 	<style>
 		.link {
 			color:#fff;
 			background:#f00;
 		}
 	</style>
-</head>
-<body>
 
-	<p>This test only checks for behavior between browsers when <code>click</code> non-anchor event is prevented.</p>
+	<p>This test only checks for behavior between browsers when <code>mousedown</code> non-anchor event is prevented. <code>click</code> event is also prevented.</p>
 
 	<div class="sandbox">
 		<span class="link" href="http://google.com">Test</span>
@@ -39,7 +34,7 @@
 						<h4>Firefox</h4>
 						<ul>
 							<li>Default: yes; reports 1</li>
-							<li>Middle mouse click: yes; reports nothing</li>
+							<li>Middle mouse click: yes; reports 2</li>
 							<li>Command/control click: yes; reports 1</li>
 							<li><b>Event object reports <code>e.target</code> as <code>e.currentTarget</code> when run on button element</b></li>
 						</ul>
@@ -47,9 +42,9 @@
 					<li>
 						<h4>IE 8</h4>
 						<ul>
-							<li>Default: yes; reports 0</li>
-							<li>Middle mouse click: yes; reports nothing</li>
-							<li>Command/control click: yes; reports nothing</li>
+							<li>Default: yes; reports 1</li>
+							<li>Middle mouse click: yes; reports 2</li>
+							<li>Command/control click: yes; reports 1</li>
 							<li><b>Event object reports <code>e.target</code> as <code>e.currentTarget</code> when run on button element</b></li>
 						</ul>
 					</li>
@@ -74,8 +69,6 @@
 		</ul>
 	</div>
 
-	<script src="../bower_components/jquery/dist/jquery.min.js"></script>
-
 	<script>
 
 		function result ( data ) {
@@ -84,10 +77,13 @@
 
 		$('.link').on('click', function ( e ) {
 			e.preventDefault();
+		});
+
+		$('.link').on('mousedown', function ( e ) {
+			// e.preventDefault();
 			result(e.which);
 		});
 
 	</script>
 
-</body>
-</html>
+{{> bottom}}

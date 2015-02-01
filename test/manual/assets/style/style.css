@@ -1,28 +1,28 @@
-a, li {
+.sandbox a, .sandbox li {
 	margin:10px 0;
 	padding:20px;
 	background:green;
 	color:white;
 }
 
-a {
+.sandbox a {
 	display:block;
 }
 
-li a {
+.sandbox li a {
 	padding:10px;
 	background:red;
 	color:white;
 }
 
-:target {
+.sandbox :target {
 	background:yellow;
 }
-a:focus,
-li:focus {
+.sandbox a:focus,
+.sandbox li:focus {
 	outline:5px solid hotpink;
 }
 
-.controls {
+.sandbox .controls {
 	position:fixed; right:10px; top:10px;
 }
