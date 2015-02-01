@@ -1,4 +1,4 @@
-/*! kist-fauxanchor 0.4.13 - Simulate default anchor action. | Author: Ivan Nikolić <niksy5@gmail.com> (http://ivannikolic.com/), 2015 | License: MIT */
+/*! kist-fauxanchor 0.5.0 - Simulate default anchor action. | Author: Ivan Nikolić <niksy5@gmail.com> (http://ivannikolic.com/), 2015 | License: MIT */
 !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self);var n=f;n=n.jQuery||(n.jQuery={}),n=n.fn||(n.fn={}),n.fauxAnchor=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
 var $ = (typeof window !== "undefined" ? window.$ : typeof global !== "undefined" ? global.$ : null);
@@ -81,15 +81,16 @@ module.exports = {
 	},
 
 	simulateAlternative: function ( type, e ) {
+		/**
+		 * Don’t simulate alternative if:
+		 *   * is anchor AND
+		 *   * anchorPreventDefault is falsy OR
+		 *   * middle mouse button AND is not WebKit browser AND is not IE <= 8 OR
+		 *   * current element is the same as clicked element AND is IE <= 8 AMD (middle mouse button OR left mouse button AND ⌃)
+		 */
 		if ( type === 'anchor' ) {
-
-			/**
-			 * Don’t simulate alternative if:
-			 *   * is anchor AND
-			 *   * middle mouse button AND is not WebKit browser AND is not IE <= 8 OR
-			 *   * current element is the same as clicked element AND is IE <= 8 AMD (middle mouse button OR left mouse button AND ⌃)
-			 */
-			if ( (e.which === 2 && (!env.browser.webkit.all && !env.browser.ie.lte8)) ||
+			if ( !this.options.anchorPreventDefault ||
+				(e.which === 2 && (!env.browser.webkit.all && !env.browser.ie.lte8)) ||
 				(this.$el.is(e.target) && env.browser.ie.lte8 && (e.which === 2 || (e.which === 1 && e.ctrlKey)))
 			) {
 				return false;
@@ -237,6 +238,11 @@ $.extend(FauxAnchor.prototype, {
 		 * Should the unfocusable element be focusable
 		 */
 		focus: true,
+
+		/**
+		 * Should anchor default action be prevented
+		 */
+		anchorPreventDefault: true,
 
 		/**
 		 * Basic action
@@ -522,7 +528,7 @@ module.exports = function ( e ) {
 	var event = e.type;
 	var type  = this.options.type;
 
-	if ( type === 'anchor' && event === 'click' ) {
+	if ( type === 'anchor' && event === 'click' && this.options.anchorPreventDefault ) {
 		e.preventDefault();
 	}
 
