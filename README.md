@@ -56,14 +56,23 @@ If function returns true, link will be activated.
 ###### focus
 
 Type: `Boolean`  
+Default value: `true`
 
 Should the unfocusable element be focusable.
 
 ###### contextMenu
 
 Type: `Boolean`  
+Default value: `true`
 
 Should the unfocusable element have [context menu](https://hacks.mozilla.org/2011/11/html5-context-menus-in-firefox-screencast-and-code/).
+
+###### anchorPreventDefault
+
+Type: `Boolean`  
+Default value: `true`
+
+Should anchor default action be prevented.
 
 ##### Options defined as `String`
 

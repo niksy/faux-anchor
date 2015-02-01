@@ -34,6 +34,9 @@
 			<a class="fifth" href="#faux">
 				<span>Custom basic and alternative actions</span>
 			</a>
+			<a class="sixth" href="#faux2">
+				<span>Don’t prevent default action</span>
+			</a>
 		</ul>
 
 		<div class="controls">
@@ -69,6 +72,10 @@
 			alternative: function ( e, done ) {
 				console.log('Alternative action');
 			}
+		});
+
+		$('.sixth').fauxAnchor({
+			anchorPreventDefault: false
 		});
 
 		$('.updateSecond').on('click', function ( e ) {
