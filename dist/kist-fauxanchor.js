@@ -1,7 +1,7 @@
-/*! kist-fauxanchor 0.5.1 - Simulate default anchor action. | Author: Ivan Nikolić <niksy5@gmail.com> (http://ivannikolic.com/), 2015 | License: MIT */
-!function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self);var n=f;n=n.jQuery||(n.jQuery={}),n=n.fn||(n.fn={}),n.fauxAnchor=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+/*! kist-fauxanchor 0.5.2 - Simulate default anchor action. | Author: Ivan Nikolić <niksy5@gmail.com> (http://ivannikolic.com/), 2017 | License: MIT */
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g=(g.jQuery||(g.jQuery = {}));g=(g.fn||(g.fn = {}));g.fauxAnchor = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
-var $ = (typeof window !== "undefined" ? window.$ : typeof global !== "undefined" ? global.$ : null);
+var $ = (typeof window !== "undefined" ? window['$'] : typeof global !== "undefined" ? global['$'] : null);
 var env = require(6);
 
 module.exports = {
@@ -101,9 +101,9 @@ module.exports = {
 };
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],2:[function(require,module,exports){
+},{"6":6}],2:[function(require,module,exports){
 (function (global){
-var $ = (typeof window !== "undefined" ? window.$ : typeof global !== "undefined" ? global.$ : null);
+var $ = (typeof window !== "undefined" ? window['$'] : typeof global !== "undefined" ? global['$'] : null);
 var dom = require(4);
 var events = require(7);
 var instance = require(10);
@@ -283,15 +283,15 @@ $.extend(FauxAnchor.prototype, {
 });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],3:[function(require,module,exports){
+},{"1":1,"10":10,"3":3,"4":4,"7":7,"8":8}],3:[function(require,module,exports){
 (function (global){
-var $ = (typeof window !== "undefined" ? window.$ : typeof global !== "undefined" ? global.$ : null);
-var meta = require(11);
+var $ = (typeof window !== "undefined" ? window['$'] : typeof global !== "undefined" ? global['$'] : null);
+var meta = require(12);
 var instance = require(10);
 var env = require(6);
 var abstract = require(1);
 var htmlClasses = require(8);
-var stopPropagation = require(12);
+var stopPropagation = require(13);
 
 var contextMenu = module.exports = {
 	common: {
@@ -394,11 +394,11 @@ var contextMenu = module.exports = {
 };
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],4:[function(require,module,exports){
+},{"1":1,"10":10,"12":12,"13":13,"6":6,"8":8}],4:[function(require,module,exports){
 (function (global){
 // jscs:disable disallowQuotedKeysInObjects
 
-var $ = (typeof window !== "undefined" ? window.$ : typeof global !== "undefined" ? global.$ : null);
+var $ = (typeof window !== "undefined" ? window['$'] : typeof global !== "undefined" ? global['$'] : null);
 var contextMenu = require(3);
 var htmlClasses = require(8);
 
@@ -438,10 +438,10 @@ module.exports = {
 };
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],5:[function(require,module,exports){
+},{"3":3,"8":8}],5:[function(require,module,exports){
 var env = require(6);
 var abstract = require(1);
-var stopPropagation = require(12);
+var stopPropagation = require(13);
 
 /**
  * Stop executing entry action
@@ -454,6 +454,7 @@ var stopPropagation = require(12);
  */
 function stopEntryAction ( event, key, e ) {
 
+	var blink      = env.browser.blink.all;
 	var webkit     = env.browser.webkit.all;
 	var safari     = env.browser.safari.all;
 	var ielte8     = env.browser.ie.lte8;
@@ -476,7 +477,7 @@ function stopEntryAction ( event, key, e ) {
 		if ( webkit || iemobilewp || touch && key !== 2 ) {
 			state++;
 		}
-		if ( ielte8 && touch ) {
+		if ( (ielte8 && touch) || (blink && !touch) ) {
 			state--;
 		}
 	}
@@ -548,7 +549,7 @@ module.exports = function ( e ) {
 
 };
 
-},{}],6:[function(require,module,exports){
+},{"1":1,"13":13,"6":6}],6:[function(require,module,exports){
 /**
  * Detecting environments to normalize actions
  * Ugly, but works… sort of
@@ -559,6 +560,9 @@ var env = module.exports = {
 		osx: /OS X/i.test(navigator.userAgent)
 	},
 	browser: {
+		blink: {
+			all: !!window.chrome
+		},
 		webkit: {
 			all: 'WebkitAppearance' in document.documentElement.style
 		},
@@ -589,7 +593,7 @@ var env = module.exports = {
 
 },{}],7:[function(require,module,exports){
 (function (global){
-var $ = (typeof window !== "undefined" ? window.$ : typeof global !== "undefined" ? global.$ : null);
+var $ = (typeof window !== "undefined" ? window['$'] : typeof global !== "undefined" ? global['$'] : null);
 var contextMenu = require(3);
 var entryAction = require(5);
 
@@ -611,8 +615,8 @@ module.exports = {
 };
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],8:[function(require,module,exports){
-var meta = require(11);
+},{"3":3,"5":5}],8:[function(require,module,exports){
+var meta = require(12);
 var htmlClass = meta.ns.htmlClass;
 
 module.exports = {
@@ -621,12 +625,12 @@ module.exports = {
 	contextMenuItem: htmlClass + '-contextMenu-item'
 };
 
-},{}],9:[function(require,module,exports){
+},{"12":12}],9:[function(require,module,exports){
 (function (global){
-var $ = (typeof window !== "undefined" ? window.$ : typeof global !== "undefined" ? global.$ : null);
+var $ = (typeof window !== "undefined" ? window['$'] : typeof global !== "undefined" ? global['$'] : null);
 var Ctor = require(2);
-var meta = require(11);
-var isPublicMethod = require(13)(meta.publicMethods);
+var meta = require(12);
+var isPublicMethod = require(11)(meta.publicMethods);
 
 /**
  * @param  {Mixed} options
@@ -656,7 +660,7 @@ function constructOptions ( options ) {
  *
  * @return {jQuery}
  */
-var plugin = module.exports = function ( options ) {
+var plugin = $.fn[meta.name] = module.exports = function ( options ) {
 
 	options = options || {};
 
@@ -676,10 +680,10 @@ var plugin = module.exports = function ( options ) {
 plugin.defaults = Ctor.prototype.defaults;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],10:[function(require,module,exports){
+},{"11":11,"12":12,"2":2}],10:[function(require,module,exports){
 (function (global){
-var $ = (typeof window !== "undefined" ? window.$ : typeof global !== "undefined" ? global.$ : null);
-var meta = require(11);
+var $ = (typeof window !== "undefined" ? window['$'] : typeof global !== "undefined" ? global['$'] : null);
+var meta = require(12);
 var instance = 0;
 
 var instanceObj = module.exports = {
@@ -696,7 +700,30 @@ var instanceObj = module.exports = {
 };
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],11:[function(require,module,exports){
+},{"12":12}],11:[function(require,module,exports){
+(function (global){
+var $ = (typeof window !== "undefined" ? window['$'] : typeof global !== "undefined" ? global['$'] : null);
+
+/**
+ * @param  {Array} methods
+ *
+ * @return {Function}
+ */
+module.exports = function ( methods ) {
+
+	/**
+	 * @param  {String} name
+	 *
+	 * @return {Boolean}
+	 */
+	return function ( name ) {
+		return typeof(name) === 'string' && $.inArray(name, methods || []) !== -1;
+	};
+
+};
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{}],12:[function(require,module,exports){
 module.exports = {
 	name: 'fauxAnchor',
 	ns: {
@@ -706,7 +733,7 @@ module.exports = {
 	publicMethods: ['destroy','prevent','unprevent']
 };
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 var htmlClasses = require(8);
 
 /**
@@ -732,28 +759,5 @@ module.exports = function ( el, e, type ) {
 
 };
 
-},{}],13:[function(require,module,exports){
-(function (global){
-var $ = (typeof window !== "undefined" ? window.$ : typeof global !== "undefined" ? global.$ : null);
-
-/**
- * @param  {Array} methods
- *
- * @return {Function}
- */
-module.exports = function ( methods ) {
-
-	/**
-	 * @param  {String} name
-	 *
-	 * @return {Boolean}
-	 */
-	return function ( name ) {
-		return typeof(name) === 'string' && $.inArray(name, methods || []) !== -1;
-	};
-
-};
-
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}]},{},[9])(9)
+},{"8":8}]},{},[9])(9)
 });
