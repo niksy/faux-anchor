@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>All custom event</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+	<link rel="stylesheet" href="all-custom-event/index.css" />
+</head>
+<body>
+	<div class="sandbox">
+
+		<div id="faux">
+			#faux clicked!
+		</div>
+
+		<div id="faux2">
+			#faux2 clicked!
+		</div>
+
+		<div id="link">
+			#link clicked!
+		</div>
+
+		<div id="foo">
+			#foo clicked!
+		</div>
+
+		<ul>
+			<li>
+				<a class="anchor" href="#faux">
+					<span>Anchor</span>
+				</a>
+			</li>
+			<li class="basic" data-href="#faux">
+				<span>Basic</span>
+			</li>
+			<li>
+				<button type="button" class="button" data-href="#faux">
+					<span>Button</span>
+				</button>
+			</li>
+			<li class="basic-unfocusable" data-href="#faux">
+				<span>Basic</span>
+			</li>
+		</ul>
+
+	</div>
+	<script src="all-custom-event/index.js"></script>
+</body>
+</html>

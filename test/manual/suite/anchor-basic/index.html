@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>Anchor basic</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+	<link rel="stylesheet" href="anchor-basic/index.css" />
+</head>
+<body>
+	<div class="sandbox">
+
+		<div id="faux">
+			#faux clicked!
+		</div>
+
+		<div id="faux2">
+			#faux2 clicked!
+		</div>
+
+		<div id="link">
+			#link clicked!
+		</div>
+
+		<div id="foo">
+			#foo clicked!
+		</div>
+
+		<ul>
+			<a class="first" href="#faux">
+				<span>Only href="#faux"</span>
+			</a>
+			<a class="second">
+				<span>No handlers</span>
+			</a>
+			<a class="third" href="#faux2">
+				<span>Only href="#faux2", with condition 'screen and (max-width:900px)'</span>
+			</a>
+			<a class="fourth" href="#faux" target="_blank">
+				<span>href="#faux" and target="_blank"</span>
+			</a>
+			<a class="fifth" href="#faux">
+				<span>Custom basic and alternative actions</span>
+			</a>
+			<a class="sixth" href="#faux2">
+				<span>Don’t prevent default action</span>
+			</a>
+		</ul>
+
+		<div class="controls">
+			<button type="button" class="updateSecond">Update '.second' with <code>{href:'#foo'}</code></button><br />
+			<button type="button" class="destroyAll">Destroy all instances</button><br />
+			<button type="button" class="triggerFirst">Manually trigger '.first'</button><br />
+			<button type="button" class="preventFirst">Prevent '.first'</button><br />
+			<button type="button" class="preventFirstSecond">Prevent '.first' and '.second'</button><br />
+			<button type="button" class="unpreventFirst">Unprevent '.first'</button><br />
+			<button type="button" class="unpreventSecond">Unprevent '.second'</button>
+		</div>
+
+	</div>
+	<script src="anchor-basic/index.js"></script>
+</body>
+</html>

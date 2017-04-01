@@ -1,0 +1,28 @@
+.sandbox a, .sandbox li {
+	margin:10px 0;
+	padding:20px;
+	background:green;
+	color:white;
+}
+
+.sandbox a {
+	display:block;
+}
+
+.sandbox li a {
+	padding:10px;
+	background:red;
+	color:white;
+}
+
+.sandbox :target {
+	background:yellow;
+}
+.sandbox a:focus,
+.sandbox li:focus {
+	outline:5px solid hotpink;
+}
+
+.sandbox .controls {
+	position:fixed; right:10px; top:10px;
+}

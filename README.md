@@ -8,8 +8,6 @@ When run on anchor elements, it "hijacks" standard action and gives you option o
 
 ```sh
 npm install kist-fauxanchor --save
-
-bower install kist-fauxanchor --save
 ```
 
 ## API
@@ -184,7 +182,7 @@ $('.element').fauxAnchor('destroy');
 
 ## Browser support
 
-Tested in IE8+ and all modern browsers.
+Tested in IE9+ and all modern browsers.
 
 ## License
 

@@ -2,56 +2,59 @@
   "name": "kist-fauxanchor",
   "version": "0.5.3",
   "description": "Simulate default anchor action.",
-  "author": "Ivan Nikolić <niksy5@gmail.com> (http://ivannikolic.com/)",
+  "main": "dist/index.js",
+  "author": "Ivan Nikolić <niksy5@gmail.com> (http://ivannikolic.com)",
   "license": "MIT",
-  "main": "lib/index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "version": "grunt update_json && grunt build && git add -A",
-    "test": "bower install && grunt test"
+    "build": "babel '{index,lib/**/*}.js' --out-dir dist/",
+    "lint": "eslint 'index.js'",
+    "prepublish": "npm run build",
+    "test": "npm run lint",
+    "test:manual:local": "gulp test:local:manual --watch"
   },
   "dependencies": {
-    "jquery": "^1.11.2"
+    "jquery": "^1.12.4"
   },
   "devDependencies": {
-    "bower": "^1.8.0",
-    "browserify-shim": "^3.8.0",
-    "bundle-collapser": "^1.1.0",
-    "grunt": "^0.4.5",
-    "grunt-browserify": "^3.2.0",
-    "grunt-bump": "^0.1.0",
-    "grunt-cli": "^1.2.0",
-    "grunt-compile-handlebars": "^1.0.0",
-    "grunt-concurrent": "^1.0.0",
-    "grunt-contrib-concat": "^0.4.0",
-    "grunt-contrib-connect": "^0.9.0",
-    "grunt-contrib-copy": "^0.7.0",
-    "grunt-contrib-jshint": "^0.10.0",
-    "grunt-contrib-uglify": "^0.7.0",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-jscs": "^1.1.0",
-    "grunt-update-json": "^0.2.2",
-    "load-grunt-tasks": "^0.6.0"
+    "@niksy/babayaga": "^0.1.1",
+    "babel-cli": "^6.18.0",
+    "babel-preset-niksy": "^1.0.0",
+    "babelify": "^7.3.0",
+    "del": "^2.2.0",
+    "eslint": "^3.1.1",
+    "eslint-config-niksy": "^3.0.1",
+    "globby": "^4.1.0",
+    "gulp": "^3.9.1",
+    "gulp-debug": "^2.1.2",
+    "gulp-nunjucks-render": "^2.0.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-util": "^3.0.7",
+    "local-web-server": "^1.2.4",
+    "minimist": "^1.2.0",
+    "opn": "^4.0.2"
+  },
+  "engines": {
+    "node": ">=4"
   },
   "keywords": [
-    "kist",
-    "faux",
     "anchor",
-    "browserify",
-    "simulate",
-    "mouse"
+    "ecosystem:jquery",
+    "faux",
+    "jquery-plugin",
+    "kist",
+    "mouse",
+    "simulate"
   ],
-  "browserify-shim": {
-    "jquery": "global:$"
-  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/niksy/kist-fauxanchor.git"
+    "url": "git+https://github.com/niksy/kist-fauxanchor.git"
   },
   "bugs": {
     "url": "https://github.com/niksy/kist-fauxanchor/issues"
   },
-  "homepage": "https://github.com/niksy/kist-fauxanchor"
+  "homepage": "https://github.com/niksy/kist-fauxanchor#readme"
 }
