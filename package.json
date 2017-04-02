@@ -1,7 +1,7 @@
 {
-  "name": "kist-fauxanchor",
+  "name": "faux-anchor",
   "version": "0.5.3",
-  "description": "Simulate default anchor action.",
+  "description": "Improve anchor and non-anchor elements with primary and secondary actions and callbacks.",
   "main": "dist/index.js",
   "author": "Ivan Nikolić <niksy5@gmail.com> (http://ivannikolic.com)",
   "license": "MIT",
@@ -10,19 +10,26 @@
   },
   "scripts": {
     "build": "babel '{index,lib/**/*}.js' --out-dir dist/",
-    "lint": "eslint 'index.js'",
+    "lint": "eslint '{index,test/**/*}.js'",
     "prepublish": "npm run build",
-    "test": "npm run lint",
+    "test": "npm run lint && npm run test:automated",
+    "test:automated": "karma start",
+    "test:automated:local": "karma start --browsers Chrome",
     "test:manual:local": "gulp test:local:manual --watch"
   },
   "dependencies": {
-    "jquery": "^1.12.4"
+    "class-list": "^0.1.1",
+    "classlist-multiple-values": "^1.0.1",
+    "dom-closest": "^0.2.0",
+    "xtend": "^4.0.1"
   },
   "devDependencies": {
     "@niksy/babayaga": "^0.1.1",
     "babel-cli": "^6.18.0",
     "babel-preset-niksy": "^1.0.0",
     "babelify": "^7.3.0",
+    "browserify-babel-istanbul": "^0.4.0",
+    "browserify-istanbul": "^2.0.0",
     "del": "^2.2.0",
     "eslint": "^3.1.1",
     "eslint-config-niksy": "^3.0.1",
@@ -31,30 +38,43 @@
     "gulp-debug": "^2.1.2",
     "gulp-nunjucks-render": "^2.0.0",
     "gulp-plumber": "^1.1.0",
+    "gulp-postcss": "^6.4.0",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-util": "^3.0.7",
+    "istanbul": "^0.4.3",
+    "karma": "^1.1.0",
+    "karma-browserify": "^5.0.5",
+    "karma-browserstack-launcher": "^1.0.0",
+    "karma-chrome-launcher": "^1.0.1",
+    "karma-coverage": "^1.0.0",
+    "karma-html2js-preprocessor": "^1.0.0",
+    "karma-mocha": "~1.0.1",
+    "karma-mocha-reporter": "^2.0.3",
     "local-web-server": "^1.2.4",
     "minimist": "^1.2.0",
-    "opn": "^4.0.2"
+    "mocha": "^3.1.2",
+    "opn": "^4.0.2",
+    "postcss-import": "^9.1.0",
+    "simulant": "^0.2.2",
+    "sinon": "^2.1.0",
+    "suitcss-components-test": "^1.0.0"
   },
   "engines": {
     "node": ">=4"
   },
   "keywords": [
     "anchor",
-    "ecosystem:jquery",
+    "click",
+    "fake",
     "faux",
-    "jquery-plugin",
-    "kist",
-    "mouse",
     "simulate"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/niksy/kist-fauxanchor.git"
+    "url": "git+https://github.com/niksy/faux-anchor.git"
   },
   "bugs": {
-    "url": "https://github.com/niksy/kist-fauxanchor/issues"
+    "url": "https://github.com/niksy/faux-anchor/issues"
   },
-  "homepage": "https://github.com/niksy/kist-fauxanchor#readme"
+  "homepage": "https://github.com/niksy/faux-anchor#readme"
 }

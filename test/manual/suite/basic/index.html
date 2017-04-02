@@ -1,0 +1,271 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>Basic</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+	<link rel="stylesheet" href="basic/index.css" />
+</head>
+<body>
+	<div class="Test">
+
+		<h1 class="Test-title">faux-anchor tests</h1>
+
+		<h2 class="Test-describe">Anchor</h2>
+
+		<h3 class="Test-it"><code>href="#jackie"</code></h3>
+		<div class="Test-run">
+			<div id="jackie">
+				#jackie clicked!
+			</div>
+			<a class="jackie" href="#jackie">Anchor (jackie)</a>
+		</div>
+
+		<h3 class="Test-it"><code>href="#louie"</code> and <code>target="_blank"</code></h3>
+		<div class="Test-run">
+			<div id="louie">
+				#louie clicked!
+			</div>
+			<a class="louie" href="#louie" target="_blank">Anchor (louie)</a>
+		</div>
+
+		<h3 class="Test-it">Custom primary and secondary clicks</h3>
+		<div class="Test-run">
+			<div id="heidi">
+				#heidi clicked!
+			</div>
+			<a class="heidi" href="#heidi">Anchor (heidi)</a>
+		</div>
+
+		<h3 class="Test-it">Custom primary and secondary clicks, with async action</h3>
+		<div class="Test-run">
+			<div id="macy">
+				#macy clicked!
+			</div>
+			<a class="macy" href="#macy">Anchor (macy)</a>
+		</div>
+
+		<h3 class="Test-it">Custom primary and secondary clicks, <code>target="_blank"</code></h3>
+		<div class="Test-run">
+			<div id="chloe">
+				#chloe clicked!
+			</div>
+			<a class="chloe" href="#chloe" target="_blank">Anchor (chloe)</a>
+		</div>
+
+		<h2 class="Test-describe">Tag</h2>
+
+		<h3 class="Test-it"><code>data-href="lexie"</code></h3>
+		<div class="Test-run">
+			<div id="lexie">
+				#lexie clicked!
+			</div>
+			<ul>
+				<li class="lexie" data-href="#lexie">Tag (lexie)</li>
+			</ul>
+		</div>
+
+		<h3 class="Test-it"><code>data-href="archie"</code> and <code>data-target="_blank"</code></h3>
+		<div class="Test-run">
+			<div id="archie">
+				#archie clicked!
+			</div>
+			<ul>
+				<li class="archie" data-href="#archie" data-target="_blank">Tag (archie)</li>
+			</ul>
+		</div>
+
+		<h3 class="Test-it">Custom primary and secondary clicks</h3>
+		<div class="Test-run">
+			<div id="buddy">
+				#buddy clicked!
+			</div>
+			<ul>
+				<li class="buddy" data-href="#buddy">Tag (buddy)</li>
+			</ul>
+		</div>
+
+		<h3 class="Test-it">Custom primary and secondary clicks, with async action</h3>
+		<div class="Test-run">
+			<div id="coco">
+				#coco clicked!
+			<ul>
+				<li class="coco" data-href="#coco">Tag (coco)</li>
+			</ul>
+		</div>
+
+		<h3 class="Test-it">Custom primary and secondary clicks, <code>target="_blank"</code></h3>
+		<div class="Test-run">
+			<div id="spike">
+				#spike clicked!
+			</div>
+			<ul>
+				<li class="spike" data-href="#spike" data-target="_blank">Tag (spike)</li>
+			</ul>
+		</div>
+
+		<h2 class="Test-describe">Button</h2>
+
+		<h3 class="Test-it"><code>data-href="gizmo"</code></h3>
+		<div class="Test-run">
+			<div id="gizmo">
+				#gizmo clicked!
+			</div>
+			<ul>
+				<li>
+					<button type="button" class="gizmo" data-href="#gizmo">Tag (gizmo)</button>
+				</li>
+			</ul>
+		</div>
+
+		<h3 class="Test-it"><code>data-href="rex"</code> and <code>data-target="_blank"</code></h3>
+		<div class="Test-run">
+			<div id="rex">
+				#rex clicked!
+			</div>
+			<ul>
+				<li>
+					<button type="button" class="rex" data-href="#rex" data-target="_blank">Button (rex)</button>
+				</li>
+			</ul>
+		</div>
+
+		<h3 class="Test-it">Custom primary and secondary clicks</h3>
+		<div class="Test-run">
+			<div id="peanut">
+				#peanut clicked!
+			</div>
+			<ul>
+				<li>
+					<button type="button" class="peanut" data-href="#peanut">Button (peanut)</button>
+				</li>
+			</ul>
+		</div>
+
+		<h3 class="Test-it">Custom primary and secondary clicks, with async action</h3>
+		<div class="Test-run">
+			<div id="ollie">
+				#ollie clicked!
+			</div>
+			<ul>
+				<li>
+					<button type="button" class="ollie" data-href="#ollie">Button (ollie)</button>
+				</li>
+			</ul>
+		</div>
+
+		<h3 class="Test-it">Custom primary and secondary clicks, <code>target="_blank"</code></h3>
+		<div class="Test-run">
+			<div id="layla">
+				#layla clicked!
+			</div>
+			<ul>
+				<li>
+					<button type="button" class="layla" data-href="#layla" data-target="_blank">Button (layla)</button>
+				</li>
+			</ul>
+		</div>
+
+		<h2 class="Test-describe">Complex cases</h2>
+
+		<h3 class="Test-it">Tag faux anchor instance, with standard anchor inside</h3>
+		<div class="Test-run">
+			<p>Click on anchor shouldn’t trigger tag faux anchor callbacks and should visit anchor link.</p>
+			<div id="simba">
+				#simba clicked!
+			</div>
+			<div id="simba-anchor">
+				#simba-anchor clicked!
+			</div>
+			<ul>
+				<li class="simba" data-href="#simba">
+					Tag (simba)
+					<a href="#simba-anchor">Anchor (simba)</a>
+				</li>
+			</ul>
+		</div>
+
+		<h3 class="Test-it">Tag faux anchor instance, with faux anchor instance inside</h3>
+		<div class="Test-run">
+			<p>Clicking on any faux anchor instance should trigger it’s callback, but not any callbacks of it’s ancestors.</p>
+			<div id="sammy">
+				#sammy clicked!
+			</div>
+			<div id="piper">
+				#piper clicked!
+			</div>
+			<div id="penny">
+				#penny clicked!
+			</div>
+			<ul>
+				<li class="sammy" data-href="#sammy">
+					Tag (sammy)
+					<hr />
+					<a class="piper" href="#piper"><span><span>Anchor (piper)</span></span></a>
+					<hr />
+					<button type="button" class="penny" data-href="#penny"><span><span>Button (penny)</span></span></button>
+				</li>
+			</ul>
+		</div>
+
+		<h3 class="Test-it">Anchor, with faux anchor instance inside</h3>
+		<div class="Test-run">
+			<p>Clicking on any faux anchor instance inside anchor should be ignored and parent anchor action should be triggered.</p>
+			<div id="izzy">
+				#izzy clicked!
+			</div>
+			<div id="olive">
+				#olive clicked!
+			</div>
+			<div id="moose">
+				#moose clicked!
+			</div>
+			<ul>
+				<a href="#izzy" class="izzy">
+					Anchor (izzy)
+					<hr />
+					<div class="olive" data-href="#olive">Tag (olive)</div>
+					<hr />
+					<button type="button" class="moose" data-href="#moose">Button (moose)</button>
+				</a>
+			</ul>
+		</div>
+
+		<h3 class="Test-it">Anchor faux anchor instance, with faux anchor instance inside</h3>
+		<div class="Test-run">
+			<p>Clicking on any faux anchor instance inside anchor faux anchor instance should be ignored and only callbacks of parent anchor faux anchor instance should be triggered.</p>
+			<div id="scooter">
+				#scooter clicked!
+			</div>
+			<div id="zoey">
+				#zoey clicked!
+			</div>
+			<div id="annie">
+				#annie clicked!
+			</div>
+			<ul>
+				<a href="#scooter" class="scooter">
+					Anchor (scooter)
+					<hr />
+					<div class="zoey" data-href="#zoey">Tag (zoey)</div>
+					<hr />
+					<button type="button" class="annie" data-href="#annie">Button (annie)</button>
+				</a>
+			</ul>
+		</div>
+
+		<h3 class="Test-it">Tag, unfocusable</h3>
+		<div class="Test-run">
+			<div id="luke">
+				#luke clicked!
+			</div>
+			<ul>
+				<li class="luke" data-href="#luke">Tag (luke)</li>
+			</ul>
+		</div>
+
+	</div>
+	<script src="basic/index.js"></script>
+</body>
+</html>

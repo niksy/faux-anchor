@@ -1,184 +1,113 @@
-# kist-fauxanchor
+# faux-anchor
 
-Simulate default anchor action.
+[![Build Status][ci-img]][ci] [![BrowserStack Status][browserstack-img]][browserstack]
 
-When run on anchor elements, it "hijacks" standard action and gives you option of running some operation (e.g. logging some statistics, sending analytics data, executing long AJAX request, etc.) before basic action or in conjuction with alternative action.
+Improve anchor and non-anchor elements with primary and secondary actions and callbacks.
 
-## Installation
+When run on anchor elements, it "hijacks" standard action and gives you option of running some operation (e.g. logging some statistics, sending analytics data, executing long AJAX request, …) before primary or while secondary action is performed.
+
+When run on non-anchor elements like buttons or standard tag elements, it tries to apply same heuristics like on anchor elements (e.g. middle mouse button click, return key, combination with meta modifier key, …) to provide (nearly) same behavior. Note that not all actions can be perfomed similarly due to nature of different [browser][caveat-1] [behavior][caveat-2].
+
+## Install
 
 ```sh
-npm install kist-fauxanchor --save
+npm install faux-anchor --save
 ```
 
-## API
-
-### `$Element.fauxAnchor([options])`
-
-Returns: `jQuery`
-
-Picks up necessary data from data attributes on element: `href` for URL and `target` for window name when run on non-anchor elements, or standard `href` and `target` attributes when run on standard anchor elements.
-
-#### options
-
-Type: `Object|String`
-
-##### Options defined as `Object`
-
-All methods have their `this` property pointed to element on which the plugin was initiated.
-
-###### basic
-
-Type: `Function`  
-Arguments: [Event], [Default action]
-
-Custom action to trigger on basic action (default click, left mouse button click, etc.).
-
-Alias for this method is `primary`.
-
-###### alternative
-
-Type: `Function`  
-Arguments: [Event], [Alternative action]
-
-Custom action to trigger on alternative action (⌃ or ⌘ + left mouse button click, middle mouse button click, etc.).
-
-Alias for this method is `secondary`.
-
-###### condition
-
-Type: `Function`  
-Arguments: [Event]
-
-If function returns true, link will be activated.
-
-###### focus
-
-Type: `Boolean`  
-Default value: `true`
-
-Should the unfocusable element be focusable.
-
-###### contextMenu
-
-Type: `Boolean`  
-Default value: `true`
-
-Should the unfocusable element have [context menu](https://hacks.mozilla.org/2011/11/html5-context-menus-in-firefox-screencast-and-code/).
-
-###### anchorPreventDefault
-
-Type: `Boolean`  
-Default value: `true`
-
-Should anchor default action be prevented.
-
-##### Options defined as `String`
-
-Type: `String`
-
-###### destroy
-
-Destroy plugin instance.
-
-###### prevent
-
-Prevent plugin instance from activating actions.
-
-###### unprevent
-
-Unprevent plugin instance actions prevention.
-
-## Examples
+## Usage
 
 Default structure for faux anchor.
 
 ```html
-<li data-href="http://example.com" data-target="_blank">Some content</li>
+<a class="jackie" href="http://example.com" target="_blank">jackie</li>
 
-<a href="http://example.com" target="_blank">Some content</li>
+<div class="lexie" data-href="http://example.com" data-target="_blank">lexie</div>
 ```
 
-Run on list item.
-
 ```js
-$('li').fauxAnchor();
-```
+const fauxanchor = require('faux-anchor');
+const anchorElement = document.querySelector('.jackie');
+const tagElement = document.querySelector('.lexie');
 
-Run on standard anchor.
+const anchorInstance = fauxanchor(anchorElement, {
+	onPrimaryAction: ( e, cb ) => {
+		// Called on primary action (e.g. left mouse button click)
+		
+		// Example: Log some stats…
+		statsLogger
+		// After it’s done, callback is called to proceed with native/simulated behavior
+			.then(cb);
 
-```js
-$('a').fauxAnchor();
-```
-
-Set custom actions.
-
-```js
-$('.element').fauxAnchor({
-	basic: function ( e, done ) {
-		// Do something
-		$(this).addClass('foo');
-		done();
 	},
-	alternative: function ( e, done ) {
-		// Do something
-		$(this).addClass('bar');
-		done();
+	onSecondaryAction: ( e, cb ) => {
+		// Called on secondary action (e.g. middle mouse button click)
 	}
 });
+
+const tagInstance = fauxanchor(tagElement);
 ```
 
-Set custom actions as aliases.
+## API
 
-```js
-$('.element').fauxAnchor({
-	primary: function ( e, done ) {
-		// Do something
-		$(this).addClass('foo');
-		done();
-	},
-	secondary: function ( e, done ) {
-		// Do something
-		$(this).addClass('bar');
-		done();
-	}
-});
-```
+### fauxanchor(element[, options])
 
-Set condition upon which links should be activated.
+Returns: `Object`
 
-```js
-$('.element').fauxAnchor({
-	condition: function ( e ) {
-		return window.matchMedia('screen and (max-width:600px)').matches;
-	}
-});
-```
+When run on anchor elements, standard `href` and `target` attributes are used. When run on non-anchor elements, `data-href` and `data-target` for window name.
 
-Set option which determines should the unfocusable element be focusable.
+#### element
 
-```js
-$('.element').fauxAnchor({
-	focus: true
-});
-```
+Type: `Element`
 
-Prevent plugin instance action.
+Element on which to apply changes.
 
-```js
-$('.element').fauxAnchor('prevent');
-```
+#### options
 
-Unprevent plugin instance action.
+Type: `Object`
 
-```js
-$('.element').fauxAnchor('unprevent');
-```
+##### onPrimaryAction
 
-Destroy plugin instance.
+Type: `Function`
 
-```js
-$('.element').fauxAnchor('destroy');
-```
+Callback for primary action (e.g. left mouse button click). This is usually action triggered in the same window.
+
+Function arguments:
+
+* **e** `Event` Event which triggered callback
+* **cb** `Function` Callback to to proceed with native/simulated behavior.
+
+##### onSecondaryAction
+
+Type: `Function`
+
+Callback for secondary action (e.g. middle mouse button click). For anchor elements this is usually new window opened via browser native heuristics, and for non-anchor elements `window.open` is used where possible.
+
+Function arguments:
+
+* **e** `Event` Event which triggered callback
+* **cb** `Function` Callback to to proceed with native/simulated behavior.
+
+##### focusUnfocusable
+
+Type: `Boolean`  
+Default: `true`
+
+Should the unfocusable element (e.g. generic tag) be focusable.
+
+##### elementClass
+
+Type: `String`  
+Default: `kist-FauxAnchor`
+
+### instance.destroy()
+
+Destroy instance.
+
+## Test
+
+For local automated tests, run `npm run test:automated:local`.
+
+For manual tests, run `npm run test:manual:local` and open <http://localhost:9000/> in your browser.
 
 ## Browser support
 
@@ -187,3 +116,10 @@ Tested in IE9+ and all modern browsers.
 ## License
 
 MIT © [Ivan Nikolić](http://ivannikolic.com)
+
+[ci]: https://travis-ci.org/niksy/faux-anchor
+[ci-img]: https://travis-ci.org/niksy/faux-anchor.svg?branch=master
+[browserstack]: https://www.browserstack.com/
+[browserstack-img]: https://www.browserstack.com/automate/badge.svg?badge_key=Nk52TFM4VlNzVXZZNVN4cjBYQ0Q2UlVaMm11a0hjbDdsVkt4a0E1RkpVdz0tLTgrVXIrSmpoeUhiSGtHSmFGa1BCTUE9PQ==--ba8dced5c271a7d8a4fa1e1e396b5e24eed9005d
+[caveat-1]: http://stackoverflow.com/questions/15210634/popup-windows-being-blocked-if-opened-through-mousedown-event
+[caveat-2]: http://stackoverflow.com/questions/22151676/how-to-prevent-a-keypress-event-firing-a-click-event-when-focus-is-on-a-butt

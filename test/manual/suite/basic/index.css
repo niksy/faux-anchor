@@ -1,0 +1,31 @@
+@import url('suitcss-components-test');
+
+.Test a, .Test li {
+	margin:10px 0;
+	padding:20px;
+	background:green;
+	color:white;
+}
+
+.Test ul {
+	margin:0; padding:0;
+}
+
+.Test a {
+	display:block;
+}
+
+.Test li a {
+	padding:10px;
+	background:red;
+	color:white;
+}
+
+.Test :target {
+	background:yellow;
+}
+.Test a:focus,
+.Test li:focus,
+.Test button:focus {
+	outline:5px solid hotpink;
+}
