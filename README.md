@@ -53,7 +53,9 @@ const tagInstance = fauxanchor(tagElement);
 
 Returns: `Object`
 
-When run on anchor elements, standard `href` and `target` attributes are used. When run on non-anchor elements, `data-href` and `data-target` for window name.
+When run on anchor elements, `href` and `target` attributes are used. When run on non-anchor elements, `data-href` and `data-target` attributes are used.
+
+There is also support for `rel`/`data-rel` attribute, particularly [`noopener` value due to security issues][noopener-security].
 
 #### element
 
@@ -74,7 +76,7 @@ Callback for primary action (e.g. left mouse button click). This is usually acti
 Function arguments:
 
 * **e** `Event` Event which triggered callback
-* **cb** `Function` Callback to to proceed with native/simulated behavior.
+* **cb** `Function` Callback to proceed with native/simulated behavior.
 
 ##### onSecondaryAction
 
@@ -85,7 +87,7 @@ Callback for secondary action (e.g. middle mouse button click). For anchor eleme
 Function arguments:
 
 * **e** `Event` Event which triggered callback
-* **cb** `Function` Callback to to proceed with native/simulated behavior.
+* **cb** `Function` Callback to proceed with native/simulated behavior.
 
 ##### focusUnfocusable
 
@@ -123,3 +125,4 @@ MIT © [Ivan Nikolić](http://ivannikolic.com)
 [browserstack-img]: https://www.browserstack.com/automate/badge.svg?badge_key=Nk52TFM4VlNzVXZZNVN4cjBYQ0Q2UlVaMm11a0hjbDdsVkt4a0E1RkpVdz0tLTgrVXIrSmpoeUhiSGtHSmFGa1BCTUE9PQ==--ba8dced5c271a7d8a4fa1e1e396b5e24eed9005d
 [caveat-1]: http://stackoverflow.com/questions/15210634/popup-windows-being-blocked-if-opened-through-mousedown-event
 [caveat-2]: http://stackoverflow.com/questions/22151676/how-to-prevent-a-keypress-event-firing-a-click-event-when-focus-is-on-a-butt
+[noopener-security]: https://medium.com/@jitbit/target-blank-the-most-underestimated-vulnerability-ever-96e328301f4c
