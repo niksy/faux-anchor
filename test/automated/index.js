@@ -5,9 +5,10 @@ const classList = require('class-list');
 const simulant = require('simulant');
 const sinon = require('sinon');
 const fn = require('../../index');
-let anchorElement, tagElement, buttonElement, anchorTargetElement,
-	tagTargetElement, buttonTargetElement, anchorClassList, tagClassList,
-	buttonClassList, anchorTargetClassList, tagTargetClassList, buttonTargetClassList;
+let anchorElement, tagElement, buttonElement,
+	anchorTargetElement, tagTargetElement, buttonTargetElement,
+	tagRelElement,
+	anchorClassList, tagClassList, buttonClassList;
 
 const isMacOs = /OS X/i.test(navigator.userAgent);
 
@@ -40,12 +41,10 @@ before(function () {
 	anchorTargetElement = document.querySelector('.louie');
 	tagTargetElement = document.querySelector('.archie');
 	buttonTargetElement = document.querySelector('.peanut');
+	tagRelElement = document.querySelector('.jackson');
 	anchorClassList = classList(anchorElement);
 	tagClassList = classList(tagElement);
 	buttonClassList = classList(buttonElement);
-	anchorTargetClassList = classList(anchorTargetElement);
-	tagTargetClassList = classList(tagTargetElement);
-	buttonTargetClassList = classList(buttonTargetElement);
 
 });
 
@@ -482,6 +481,31 @@ describe('Attributes `target` and `data-target`', function () {
 		anchorInstance.destroy();
 		tagInstance.destroy();
 		buttonInstance.destroy();
+
+	});
+
+});
+
+describe('Attribute `data-rel`', function () {
+
+	it('should set opener to null', function () {
+
+		const spy = sinon.spy(fn.FauxAnchor.prototype, 'simulateSecondaryAction');
+
+		const tagInstance = fn(tagRelElement);
+
+		simulant.fire(tagRelElement, metaLeftClick);
+
+		const returnValue = spy.returnValues[0];
+
+		assert.ok(
+			returnValue ?
+			returnValue.opener === null :
+			true
+		);
+
+		spy.restore();
+		tagInstance.destroy();
 
 	});
 

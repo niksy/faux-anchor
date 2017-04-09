@@ -123,6 +123,7 @@ function FauxAnchor ( element, options ) {
 	this.type = this.determineType();
 	this.href = this.determineHref();
 	this.target = this.determineTarget();
+	this.rel = this.determineRelations();
 
 	this.setupDom();
 	this.setupEvents();
@@ -209,6 +210,19 @@ extend(FauxAnchor.prototype, {
 		}
 		return TARGET_SAME_WINDOW;
 
+	},
+
+	determineRelations: function () {
+		if ( this.type === TYPE_ANCHOR ) {
+			return this.element.rel;
+		}
+		if ( this.element.dataset && this.element.dataset.rel ) {
+			return this.element.dataset.rel;
+		}
+		if ( this.element.getAttribute('data-rel') !== null ) {
+			return this.element.getAttribute('data-rel');
+		}
+		return '';
 	},
 
 	prepareClassList: function () {
@@ -389,11 +403,19 @@ extend(FauxAnchor.prototype, {
 	},
 
 	simulatePrimaryAction: function () {
-		window.location.assign(this.href);
+		return window.location.assign(this.href);
 	},
 
 	simulateSecondaryAction: function () {
-		window.open(this.href, '_blank');
+		const w = window.open(this.href, '_blank');
+		if (
+			w &&
+			this.rel !== '' &&
+			/noopener/.test(this.rel)
+		) {
+			w.opener = null;
+		}
+		return w;
 	},
 
 	destroy: function () {
