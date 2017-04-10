@@ -60,12 +60,15 @@ describe('Instance', function () {
 		const tagInstance = fn(tagElement);
 		const buttonInstance = fn(buttonElement);
 
+		assert.ok(!anchorElement.getAttribute('role'));
 		assert.ok(anchorClassList.contains('kist-FauxAnchor'));
-		assert.ok(tagClassList.contains('kist-FauxAnchor'));
-		assert.ok(buttonClassList.contains('kist-FauxAnchor'));
 
-		assert.equal(tagElement.getAttribute('tabindex'), 0);
 		assert.equal(tagElement.getAttribute('role'), 'link');
+		assert.equal(tagElement.getAttribute('tabindex'), 0);
+		assert.ok(tagClassList.contains('kist-FauxAnchor'));
+
+		assert.equal(buttonElement.getAttribute('role'), 'link');
+		assert.ok(buttonClassList.contains('kist-FauxAnchor'));
 
 		anchorInstance.destroy();
 		tagInstance.destroy();
@@ -83,12 +86,15 @@ describe('Instance', function () {
 		tagInstance.destroy();
 		buttonInstance.destroy();
 
+		assert.ok(!anchorElement.getAttribute('role'));
 		assert.ok(!anchorClassList.contains('kist-FauxAnchor'));
-		assert.ok(!tagClassList.contains('kist-FauxAnchor'));
-		assert.ok(!buttonClassList.contains('kist-FauxAnchor'));
 
-		assert.ok(!tagElement.getAttribute('tabindex'));
 		assert.ok(!tagElement.getAttribute('role'));
+		assert.ok(!tagElement.getAttribute('tabindex'));
+		assert.ok(!tagClassList.contains('kist-FauxAnchor'));
+
+		assert.ok(!buttonElement.getAttribute('role'));
+		assert.ok(!buttonClassList.contains('kist-FauxAnchor'));
 
 	});
 

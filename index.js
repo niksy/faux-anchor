@@ -242,7 +242,9 @@ extend(FauxAnchor.prototype, {
 		this.classList.add(ELEMENT_CLASS);
 		this.classList.add(this.options.elementClass);
 
-		this.element.setAttribute('role', 'link');
+		if ( this.type !== TYPE_ANCHOR ) {
+			this.element.setAttribute('role', 'link');
+		}
 
 		if ( this.type === TYPE_UNFOCUSABLE && this.options.focusUnfocusable ) {
 			this.element.setAttribute('tabindex', 0);
@@ -255,7 +257,9 @@ extend(FauxAnchor.prototype, {
 		this.classList.remove(ELEMENT_CLASS);
 		this.classList.remove(this.options.elementClass);
 
-		this.element.removeAttribute('role');
+		if ( this.type !== TYPE_ANCHOR ) {
+			this.element.removeAttribute('role');
+		}
 
 		if ( this.type === TYPE_UNFOCUSABLE && this.options.focusUnfocusable ) {
 			this.element.removeAttribute('tabindex');
