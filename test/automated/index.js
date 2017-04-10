@@ -697,3 +697,30 @@ describe('Promise support in callbacks', function () {
 	});
 
 });
+
+describe('Fallback to primary action', function () {
+
+	it('should fallback to primary action if middle mouse button is clicked on non-anchor element', function () {
+
+		const spy = sinon.spy();
+
+		const tagInstance = fn(tagElement, {
+			fallbackToPrimaryAction: true,
+			onPrimaryAction: spy
+		});
+		const buttonInstance = fn(buttonElement, {
+			fallbackToPrimaryAction: true,
+			onPrimaryAction: spy
+		});
+
+		simulant.fire(tagElement, middleClick);
+		simulant.fire(buttonElement, middleClick);
+
+		assert.ok(spy.callCount <= 2);
+
+		tagInstance.destroy();
+		buttonInstance.destroy();
+
+	});
+
+});

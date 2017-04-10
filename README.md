@@ -105,6 +105,15 @@ Default: `true`
 
 Should the unfocusable element (e.g. generic tag) be focusable.
 
+##### fallbackToPrimaryAction
+
+Type: `Boolean`  
+Default: `false`
+
+Should the non-anchor elements fall back to primary action if secondary action is not desirable (e.g. browser blocks `window.open` windows).
+
+Currently handles middle mouse button click.
+
 ##### elementClass
 
 Type: `String`  

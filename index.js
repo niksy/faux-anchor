@@ -135,6 +135,7 @@ extend(FauxAnchor.prototype, {
 
 	options: {
 		focusUnfocusable: true,
+		fallbackToPrimaryAction: false,
 		onPrimaryAction: ( e, cb ) => {
 			cb();
 		},
@@ -299,7 +300,9 @@ extend(FauxAnchor.prototype, {
 					if ( this.type === TYPE_ANCHOR ) {
 						this.triggerAction(e);
 					} else {
-						// Fallback
+						if ( this.options.fallbackToPrimaryAction ) {
+							this.triggerAction(e, true);
+						}
 					}
 				}
 			},
@@ -318,7 +321,7 @@ extend(FauxAnchor.prototype, {
 						) {
 							this.triggerAction(e);
 						} else {
-							// Fallback
+							// Potential fallback?
 						}
 					}
 				}
@@ -385,10 +388,11 @@ extend(FauxAnchor.prototype, {
 
 	/**
 	 * @param  {Event} e
+	 * @param  {Boolean} forcePrimaryAction
 	 */
-	triggerAction: function ( e ) {
+	triggerAction: function ( e, forcePrimaryAction ) {
 
-		const target = this.determineTarget(e);
+		const target = forcePrimaryAction ? TARGET_SAME_WINDOW : this.determineTarget(e);
 		let cb, returnValue;
 
 		if ( !this.shouldTriggerAction(e) ) {

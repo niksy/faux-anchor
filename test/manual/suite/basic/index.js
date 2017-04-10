@@ -143,6 +143,18 @@ fauxAnchor(document.querySelector('.pebbles'), {
 	}
 });
 
+fauxAnchor(document.querySelector('.chance'), {
+	fallbackToPrimaryAction: true,
+	onPrimaryAction: ( e, done ) => {
+		console.log('chance, primary click');
+		done();
+	},
+	onSecondaryAction: ( e, done ) => {
+		console.log('chance, secondary click');
+		done();
+	}
+});
+
 /**
  * =============================================================================
  * Button
@@ -210,6 +222,18 @@ fauxAnchor(document.querySelector('.roscoe'), {
 				console.log(message);
 				return message;
 			});
+	}
+});
+
+fauxAnchor(document.querySelector('.riley'), {
+	fallbackToPrimaryAction: true,
+	onPrimaryAction: ( e, done ) => {
+		console.log('riley, primary click');
+		done();
+	},
+	onSecondaryAction: ( e, done ) => {
+		console.log('riley, secondary click');
+		done();
 	}
 });
 
