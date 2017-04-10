@@ -5,6 +5,8 @@ const classList = require('class-list');
 const simulant = require('simulant');
 const sinon = require('sinon');
 const fn = require('../../index');
+require('lie/polyfill');
+
 let anchorElement, tagElement, buttonElement,
 	anchorTargetElement, tagTargetElement, buttonTargetElement,
 	tagRelElement,
@@ -629,6 +631,68 @@ describe('Complex cases', function () {
 		instanceOne.destroy();
 		instanceTwo.destroy();
 		instanceThree.destroy();
+
+	});
+
+});
+
+describe('Promise support in callbacks', function () {
+
+	it('should wait for Promise resolve in primary action callback', function () {
+
+		const stub = sinon.stub().resolves();
+
+		const anchorInstance = fn(anchorElement, {
+			onPrimaryAction: stub
+		});
+		const tagInstance = fn(tagElement, {
+			onPrimaryAction: stub
+		});
+		const buttonInstance = fn(buttonElement, {
+			onPrimaryAction: stub
+		});
+
+		simulant.fire(anchorElement, leftClick);
+		simulant.fire(tagElement, leftClick);
+		simulant.fire(buttonElement, leftClick);
+
+		anchorInstance.destroy();
+		tagInstance.destroy();
+		buttonInstance.destroy();
+
+		return Promise.all(stub.returnValues)
+			.then(( res ) => {
+				assert.ok(res.length <= 3);
+			});
+
+	});
+
+	it('should wait for Promise resolve in secondary action callback', function () {
+
+		const stub = sinon.stub().resolves();
+
+		const anchorInstance = fn(anchorElement, {
+			onSecondaryAction: stub
+		});
+		const tagInstance = fn(tagElement, {
+			onSecondaryAction: stub
+		});
+		const buttonInstance = fn(buttonElement, {
+			onSecondaryAction: stub
+		});
+
+		simulant.fire(anchorElement, metaLeftClick);
+		simulant.fire(tagElement, metaLeftClick);
+		simulant.fire(buttonElement, metaLeftClick);
+
+		anchorInstance.destroy();
+		tagInstance.destroy();
+		buttonInstance.destroy();
+
+		return Promise.all(stub.returnValues)
+			.then(( res ) => {
+				assert.ok(res.length <= 3);
+			});
 
 	});
 

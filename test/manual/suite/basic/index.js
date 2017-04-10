@@ -1,6 +1,7 @@
 'use strict';
 
 const fauxAnchor = require('../../../../index');
+require('lie/polyfill');
 
 /**
  * =============================================================================
@@ -44,6 +45,31 @@ fauxAnchor(document.querySelector('.chloe'), {
 	onSecondaryAction: ( e, done ) => {
 		console.log('chloe, secondary click');
 		done();
+	}
+});
+
+fauxAnchor(document.querySelector('.apollo'), {
+	onPrimaryAction: () => {
+		return new Promise(( resolve ) => {
+			setTimeout(() => {
+				resolve('apollo, primary click');
+			}, 1000);
+		})
+			.then(( message ) => {
+				console.log(message);
+				return message;
+			});
+	},
+	onSecondaryAction: () => {
+		return new Promise(( resolve ) => {
+			setTimeout(() => {
+				resolve('apollo, secondary click');
+			}, 1000);
+		})
+			.then(( message ) => {
+				console.log(message);
+				return message;
+			});
 	}
 });
 
@@ -92,6 +118,31 @@ fauxAnchor(document.querySelector('.spike'), {
 	}
 });
 
+fauxAnchor(document.querySelector('.pebbles'), {
+	onPrimaryAction: () => {
+		return new Promise(( resolve ) => {
+			setTimeout(() => {
+				resolve('pebbles, primary click');
+			}, 1000);
+		})
+			.then(( message ) => {
+				console.log(message);
+				return message;
+			});
+	},
+	onSecondaryAction: () => {
+		return new Promise(( resolve ) => {
+			setTimeout(() => {
+				resolve('pebbles, secondary click');
+			}, 1000);
+		})
+			.then(( message ) => {
+				console.log(message);
+				return message;
+			});
+	}
+});
+
 /**
  * =============================================================================
  * Button
@@ -134,6 +185,31 @@ fauxAnchor(document.querySelector('.layla'), {
 	onSecondaryAction: ( e, done ) => {
 		console.log('layla, secondary click');
 		done();
+	}
+});
+
+fauxAnchor(document.querySelector('.roscoe'), {
+	onPrimaryAction: () => {
+		return new Promise(( resolve ) => {
+			setTimeout(() => {
+				resolve('roscoe, primary click');
+			}, 1000);
+		})
+			.then(( message ) => {
+				console.log(message);
+				return message;
+			});
+	},
+	onSecondaryAction: () => {
+		return new Promise(( resolve ) => {
+			setTimeout(() => {
+				resolve('roscoe, secondary click');
+			}, 1000);
+		})
+			.then(( message ) => {
+				console.log(message);
+				return message;
+			});
 	}
 });
 

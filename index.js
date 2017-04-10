@@ -4,6 +4,7 @@ const extend = require('xtend/mutable');
 const closest = require('dom-closest');
 const classList = require('class-list');
 const classListMultipleValues = require('classlist-multiple-values');
+const isPromise = require('is-promise');
 
 const isMacOs = /OS X/i.test(navigator.userAgent);
 
@@ -388,6 +389,7 @@ extend(FauxAnchor.prototype, {
 	triggerAction: function ( e ) {
 
 		const target = this.determineTarget(e);
+		let cb, returnValue;
 
 		if ( !this.shouldTriggerAction(e) ) {
 			return;
@@ -397,11 +399,21 @@ extend(FauxAnchor.prototype, {
 			if ( this.type !== TYPE_ANCHOR ) {
 				this.simulateSecondaryAction();
 			}
-			this.options.onSecondaryAction(e, () => {});
+
+			cb = () => {};
+			returnValue = this.options.onSecondaryAction(e, cb);
+
 		} else {
-			this.options.onPrimaryAction(e, () => {
+
+			cb = () => {
 				this.simulatePrimaryAction();
-			});
+			};
+			returnValue = this.options.onPrimaryAction(e, cb);
+
+		}
+
+		if ( isPromise(returnValue) ) {
+			returnValue.then(cb);
 		}
 
 	},

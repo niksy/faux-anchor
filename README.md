@@ -34,13 +34,18 @@ const anchorInstance = fauxanchor(anchorElement, {
 		// Called on primary action (e.g. left mouse button click)
 		
 		// Example: Log some stats…
-		statsLogger
-		// After it’s done, callback is called to proceed with native/simulated behavior
-			.then(cb);
+		statsLogger(() => {
+			
+			// After it’s done, callback is called to proceed with native/simulated behavior
+			cb();
+		});
 
 	},
-	onSecondaryAction: ( e, cb ) => {
+	onSecondaryAction: () => {
 		// Called on secondary action (e.g. middle mouse button click)
+		
+		// You can return Promise which proceeds with native/simulated behavior if it resolves
+		return statsLoggerAsPromise;
 	}
 });
 
@@ -73,6 +78,8 @@ Type: `Function`
 
 Callback for primary action (e.g. left mouse button click). This is usually action triggered in the same window.
 
+You can either return Promise or call second function argument to proceed with native/simulated behavior.
+
 Function arguments:
 
 * **e** `Event` Event which triggered callback
@@ -83,6 +90,8 @@ Function arguments:
 Type: `Function`
 
 Callback for secondary action (e.g. middle mouse button click). For anchor elements this is usually new window opened via browser native heuristics, and for non-anchor elements `window.open` is used where possible.
+
+You can either return Promise or call second function argument to proceed with native/simulated behavior.
 
 Function arguments:
 

@@ -21,6 +21,7 @@
     "class-list": "^0.1.1",
     "classlist-multiple-values": "^1.0.1",
     "dom-closest": "^0.2.0",
+    "is-promise": "^2.1.0",
     "xtend": "^4.0.1"
   },
   "devDependencies": {
@@ -50,6 +51,7 @@
     "karma-html2js-preprocessor": "^1.0.0",
     "karma-mocha": "~1.0.1",
     "karma-mocha-reporter": "^2.0.3",
+    "lie": "^3.1.1",
     "local-web-server": "^1.2.4",
     "minimist": "^1.2.0",
     "mocha": "^3.1.2",
