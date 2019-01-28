@@ -106,11 +106,6 @@ Default: `true`
 
 Should the unfocusable element (e.g. generic tag) be focusable.
 
-##### elementClass
-
-Type: `String`  
-Default: `kist-FauxAnchor`
-
 ### instance.destroy()
 
 Destroy instance.

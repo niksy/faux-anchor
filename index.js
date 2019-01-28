@@ -1,6 +1,4 @@
 import closest from 'dom-closest';
-import classList from 'class-list';
-import classListMultipleValues from 'classlist-multiple-values';
 import isPromise from 'is-promise';
 
 const isMacOs = /OS X/i.test(navigator.userAgent);
@@ -12,7 +10,6 @@ const TYPE_ANCHOR = 1;
 const TYPE_BUTTON = 2;
 const TYPE_UNFOCUSABLE = 3;
 
-const ELEMENT_CLASS = 'kist-FauxAnchor';
 const FAUX_ANCHOR_ACTIVE_ATTRIBUTE = 'data-faux-anchor-active';
 
 /**
@@ -119,8 +116,6 @@ function FauxAnchor ( element, options ) {
 		...options
 	};
 
-	this.prepareClassList();
-
 	this.type = this.determineType();
 	this.href = this.determineHref();
 	this.target = this.determineTarget();
@@ -140,8 +135,7 @@ Object.assign(FauxAnchor.prototype, {
 		},
 		onSecondaryAction: ( e, cb ) => {
 			cb();
-		},
-		elementClass: ELEMENT_CLASS
+		}
 	},
 
 	determineType () {
@@ -226,22 +220,7 @@ Object.assign(FauxAnchor.prototype, {
 		return '';
 	},
 
-	prepareClassList () {
-
-		const cl = classList(this.element);
-		const clmv = classListMultipleValues(cl);
-
-		this.classList = {
-			add: clmv.add,
-			remove: clmv.remove
-		};
-
-	},
-
 	setupDom () {
-
-		this.classList.add(ELEMENT_CLASS);
-		this.classList.add(this.options.elementClass);
 
 		this.element.setAttribute(FAUX_ANCHOR_ACTIVE_ATTRIBUTE, true);
 
@@ -256,9 +235,6 @@ Object.assign(FauxAnchor.prototype, {
 	},
 
 	destroyDom () {
-
-		this.classList.remove(ELEMENT_CLASS);
-		this.classList.remove(this.options.elementClass);
 
 		this.element.removeAttribute(FAUX_ANCHOR_ACTIVE_ATTRIBUTE);
 

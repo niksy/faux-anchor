@@ -33,8 +33,6 @@
     "version": "version-changelog CHANGELOG.md && changelog-verify CHANGELOG.md && git add CHANGELOG.md"
   },
   "dependencies": {
-    "class-list": "^0.1.1",
-    "classlist-multiple-values": "^1.0.1",
     "dom-closest": "^0.2.0",
     "is-promise": "^2.1.0"
   },

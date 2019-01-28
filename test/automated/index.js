@@ -1,13 +1,11 @@
 import assert from 'assert';
-import classList from 'class-list';
 import simulant from 'simulant';
 import sinon from 'sinon';
 import fn, { FauxAnchor } from '../../index';
 
 let anchorElement, tagElement, buttonElement,
 	anchorTargetElement, tagTargetElement, buttonTargetElement,
-	tagRelElement,
-	anchorClassList, tagClassList, buttonClassList;
+	tagRelElement;
 
 const isMacOs = /OS X/i.test(navigator.userAgent);
 
@@ -41,9 +39,6 @@ before(function () {
 	tagTargetElement = document.querySelector('.archie');
 	buttonTargetElement = document.querySelector('.peanut');
 	tagRelElement = document.querySelector('.jackson');
-	anchorClassList = classList(anchorElement);
-	tagClassList = classList(tagElement);
-	buttonClassList = classList(buttonElement);
 
 });
 
@@ -61,16 +56,13 @@ describe('Instance', function () {
 
 		assert.ok(!anchorElement.getAttribute('role'));
 		assert.equal(anchorElement.getAttribute('data-faux-anchor-active'), 'true');
-		assert.ok(anchorClassList.contains('kist-FauxAnchor'));
 
 		assert.equal(tagElement.getAttribute('role'), 'link');
 		assert.equal(tagElement.getAttribute('tabindex'), 0);
 		assert.equal(tagElement.getAttribute('data-faux-anchor-active'), 'true');
-		assert.ok(tagClassList.contains('kist-FauxAnchor'));
 
 		assert.equal(buttonElement.getAttribute('role'), 'link');
 		assert.equal(buttonElement.getAttribute('data-faux-anchor-active'), 'true');
-		assert.ok(buttonClassList.contains('kist-FauxAnchor'));
 
 		anchorInstance.destroy();
 		tagInstance.destroy();
@@ -90,16 +82,13 @@ describe('Instance', function () {
 
 		assert.ok(!anchorElement.getAttribute('role'));
 		assert.ok(!anchorElement.getAttribute('data-faux-anchor-active'));
-		assert.ok(!anchorClassList.contains('kist-FauxAnchor'));
 
 		assert.ok(!tagElement.getAttribute('role'));
 		assert.ok(!tagElement.getAttribute('tabindex'));
 		assert.ok(!tagElement.getAttribute('data-faux-anchor-active'));
-		assert.ok(!tagClassList.contains('kist-FauxAnchor'));
 
 		assert.ok(!buttonElement.getAttribute('role'));
 		assert.ok(!buttonElement.getAttribute('data-faux-anchor-active'));
-		assert.ok(!buttonClassList.contains('kist-FauxAnchor'));
 
 	});
 
