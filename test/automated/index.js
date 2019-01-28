@@ -5,7 +5,6 @@ const classList = require('class-list');
 const simulant = require('simulant');
 const sinon = require('sinon');
 const fn = require('../../index');
-require('lie/polyfill');
 
 let anchorElement, tagElement, buttonElement,
 	anchorTargetElement, tagTargetElement, buttonTargetElement,
@@ -506,11 +505,9 @@ describe('Attribute `data-rel`', function () {
 
 		const returnValue = spy.returnValues[0];
 
-		assert.ok(
-			returnValue ?
+		assert.ok(returnValue ?
 			returnValue.opener === null :
-			true
-		);
+			true);
 
 		spy.restore();
 		tagInstance.destroy();

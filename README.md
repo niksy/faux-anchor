@@ -116,9 +116,9 @@ Destroy instance.
 
 ## Test
 
-For local automated tests, run `npm run test:automated:local`.
+For automated tests, run `npm run test:automated`.
 
-For manual tests, run `npm run test:manual:local` and open <http://localhost:9000/> in your browser.
+For manual tests, run `npm run test:manual` and open <http://localhost:9000/> in your browser.
 
 ## Browser support
 

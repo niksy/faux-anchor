@@ -1,65 +1,23 @@
-/* globals process:false */
-/* eslint-disable no-process-env */
-
 'use strict';
 
-module.exports = function ( config ) {
+const path = require('path');
 
-	config.set({
-		basePath: '',
-		frameworks: ['browserify', 'mocha'],
-		files: [
-			'test/automated/**/*.html',
-			'test/automated/**/*.js'
-		],
-		exclude: [],
-		preprocessors: {
-			'test/automated/**/*.html': ['html2js'],
-			'test/automated/**/*.js': ['browserify']
-		},
-		reporters: ['mocha', 'coverage'],
-		port: 9001,
-		colors: true,
-		logLevel: config.LOG_INFO,
-		autoWatch: false,
+let config;
+
+const local = typeof process.env.CI === 'undefined' || process.env.CI === 'false';
+const port = 9001;
+
+if ( local ) {
+	config = {
+		browsers: ['Chrome'],
+	};
+} else {
+	config = {
 		browserStack: {
 			startTunnel: true,
 			project: 'faux-anchor',
 			name: 'Automated (Karma)',
 			build: 'Automated (Karma)'
-		},
-		client: {
-			captureConsole: true,
-			mocha: {
-				ui: 'bdd'
-			}
-		},
-		browserConsoleLogOptions: {
-			level: 'log',
-			format: '%b %T: %m',
-			terminal: true
-		},
-		browserify: {
-			debug: true,
-			transform: [
-				'babelify',
-				['browserify-babel-istanbul', { defaultIgnore: true }]
-			]
-		},
-		coverageReporter: {
-			reporters: [
-				{
-					type: 'html'
-				},
-				{
-					type: 'text'
-				}
-			],
-			check: {
-				global: {
-					statements: 80
-				}
-			}
 		},
 		customLaunchers: {
 			'BS-Chrome': {
@@ -113,10 +71,76 @@ module.exports = function ( config ) {
 				name: 'Android'
 			}
 		},
-		browsers: ['BS-Chrome', 'BS-Firefox', 'BS-IE9', 'BS-iOS 8.3', 'BS-Android 4.2'],
+		browsers: ['BS-Chrome', 'BS-Firefox', 'BS-IE9', 'BS-iOS 8.3', 'BS-Android 4.2']
+	};
+}
+
+module.exports = function ( baseConfig ) {
+
+	baseConfig.set(Object.assign({
+		basePath: '',
+		frameworks: ['mocha', 'fixture'],
+		files: [
+			'test/automated/**/*.html',
+			'test/automated/**/.webpack.js'
+		],
+		exclude: [],
+		preprocessors: {
+			'test/automated/**/*.html': ['html2js'],
+			'test/automated/**/.webpack.js': ['webpack', 'sourcemap']
+		},
+		reporters: ['mocha', 'coverage-istanbul'],
+		port: port,
+		colors: true,
+		logLevel: baseConfig.LOG_INFO,
+		autoWatch: false,
+		client: {
+			captureConsole: true
+		},
+		browserConsoleLogOptions: {
+			level: 'log',
+			format: '%b %T: %m',
+			terminal: true
+		},
+		browserNoActivityTimeout: 25000,
+		webpack: {
+			mode: 'none',
+			devtool: 'cheap-module-inline-source-map',
+			module: {
+				rules: [
+					{
+						test: /\.js$/,
+						exclude: /node_modules/,
+						use: [{
+							loader: 'babel-loader'
+						}]
+					},
+					{
+						test: /\.js$/,
+						exclude: /(node_modules|test)/,
+						enforce: 'post',
+						use: [{
+							loader: 'istanbul-instrumenter-loader',
+							options: {
+								esModules: true
+							}
+						}]
+					}
+				]
+			}
+		},
+		coverageIstanbulReporter: {
+			dir: path.join(__dirname, 'coverage/%browser%'),
+			fixWebpackSourcePaths: true,
+			reports: ['html', 'text'],
+			thresholds: {
+				global: {
+					statements: 80
+				}
+			}
+		},
 		singleRun: true,
-		concurrency: Infinity,
-		browserNoActivityTimeout: 25000
-	});
+		concurrency: Infinity
+	}, config));
 
 };

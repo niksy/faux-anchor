@@ -1,7 +1,7 @@
-'use strict';
+/* eslint-disable no-console */
 
-const fauxAnchor = require('../../../../index');
-require('lie/polyfill');
+import './index.css';
+import fauxAnchor from '../../index';
 
 /**
  * =============================================================================
@@ -49,28 +49,24 @@ fauxAnchor(document.querySelector('.chloe'), {
 });
 
 fauxAnchor(document.querySelector('.apollo'), {
-	onPrimaryAction: () => {
-		return new Promise(( resolve ) => {
-			setTimeout(() => {
-				resolve('apollo, primary click');
-			}, 1000);
+	onPrimaryAction: () => new Promise(( resolve ) => {
+		setTimeout(() => {
+			resolve('apollo, primary click');
+		}, 1000);
+	})
+		.then(( message ) => {
+			console.log(message);
+			return message;
+		}),
+	onSecondaryAction: () => new Promise(( resolve ) => {
+		setTimeout(() => {
+			resolve('apollo, secondary click');
+		}, 1000);
+	})
+		.then(( message ) => {
+			console.log(message);
+			return message;
 		})
-			.then(( message ) => {
-				console.log(message);
-				return message;
-			});
-	},
-	onSecondaryAction: () => {
-		return new Promise(( resolve ) => {
-			setTimeout(() => {
-				resolve('apollo, secondary click');
-			}, 1000);
-		})
-			.then(( message ) => {
-				console.log(message);
-				return message;
-			});
-	}
 });
 
 /**
@@ -119,28 +115,24 @@ fauxAnchor(document.querySelector('.spike'), {
 });
 
 fauxAnchor(document.querySelector('.pebbles'), {
-	onPrimaryAction: () => {
-		return new Promise(( resolve ) => {
-			setTimeout(() => {
-				resolve('pebbles, primary click');
-			}, 1000);
+	onPrimaryAction: () => new Promise(( resolve ) => {
+		setTimeout(() => {
+			resolve('pebbles, primary click');
+		}, 1000);
+	})
+		.then(( message ) => {
+			console.log(message);
+			return message;
+		}),
+	onSecondaryAction: () => new Promise(( resolve ) => {
+		setTimeout(() => {
+			resolve('pebbles, secondary click');
+		}, 1000);
+	})
+		.then(( message ) => {
+			console.log(message);
+			return message;
 		})
-			.then(( message ) => {
-				console.log(message);
-				return message;
-			});
-	},
-	onSecondaryAction: () => {
-		return new Promise(( resolve ) => {
-			setTimeout(() => {
-				resolve('pebbles, secondary click');
-			}, 1000);
-		})
-			.then(( message ) => {
-				console.log(message);
-				return message;
-			});
-	}
 });
 
 /**
@@ -189,28 +181,24 @@ fauxAnchor(document.querySelector('.layla'), {
 });
 
 fauxAnchor(document.querySelector('.roscoe'), {
-	onPrimaryAction: () => {
-		return new Promise(( resolve ) => {
-			setTimeout(() => {
-				resolve('roscoe, primary click');
-			}, 1000);
+	onPrimaryAction: () => new Promise(( resolve ) => {
+		setTimeout(() => {
+			resolve('roscoe, primary click');
+		}, 1000);
+	})
+		.then(( message ) => {
+			console.log(message);
+			return message;
+		}),
+	onSecondaryAction: () => new Promise(( resolve ) => {
+		setTimeout(() => {
+			resolve('roscoe, secondary click');
+		}, 1000);
+	})
+		.then(( message ) => {
+			console.log(message);
+			return message;
 		})
-			.then(( message ) => {
-				console.log(message);
-				return message;
-			});
-	},
-	onSecondaryAction: () => {
-		return new Promise(( resolve ) => {
-			setTimeout(() => {
-				resolve('roscoe, secondary click');
-			}, 1000);
-		})
-			.then(( message ) => {
-				console.log(message);
-				return message;
-			});
-	}
 });
 
 

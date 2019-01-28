@@ -449,6 +449,5 @@ module.exports = ( element, options ) => {
 		}
 	};
 };
-
 module.exports.defaultOptions = FauxAnchor.prototype.options;
 module.exports.FauxAnchor = FauxAnchor;
