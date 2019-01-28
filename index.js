@@ -13,7 +13,7 @@ const TYPE_BUTTON = 2;
 const TYPE_UNFOCUSABLE = 3;
 
 const ELEMENT_CLASS = 'kist-FauxAnchor';
-const ELEMENT_SELECTOR = `.${ELEMENT_CLASS}`;
+const FAUX_ANCHOR_ACTIVE_ATTRIBUTE = 'data-faux-anchor-active';
 
 /**
  * @param  {Event}  e
@@ -243,6 +243,8 @@ Object.assign(FauxAnchor.prototype, {
 		this.classList.add(ELEMENT_CLASS);
 		this.classList.add(this.options.elementClass);
 
+		this.element.setAttribute(FAUX_ANCHOR_ACTIVE_ATTRIBUTE, true);
+
 		if ( this.type !== TYPE_ANCHOR ) {
 			this.element.setAttribute('role', 'link');
 		}
@@ -257,6 +259,8 @@ Object.assign(FauxAnchor.prototype, {
 
 		this.classList.remove(ELEMENT_CLASS);
 		this.classList.remove(this.options.elementClass);
+
+		this.element.removeAttribute(FAUX_ANCHOR_ACTIVE_ATTRIBUTE);
 
 		if ( this.type !== TYPE_ANCHOR ) {
 			this.element.removeAttribute('role');
@@ -375,7 +379,7 @@ Object.assign(FauxAnchor.prototype, {
 		 */
 		if (
 			!closest(this.element.parentNode, 'a') &&
-			closest(this.element.parentNode, ELEMENT_SELECTOR)
+			closest(this.element.parentNode, `[${FAUX_ANCHOR_ACTIVE_ATTRIBUTE}]`)
 		) {
 			return true;
 		}
