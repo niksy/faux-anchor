@@ -628,7 +628,7 @@ describe('Complex cases', function () {
 
 describe('Promise support in callbacks', function () {
 
-	it('should wait for Promise resolve in primary action callback', function () {
+	it('should wait for Promise resolve in primary action callback', async function () {
 
 		const stub = sinon.stub().resolves();
 
@@ -650,14 +650,13 @@ describe('Promise support in callbacks', function () {
 		tagInstance.destroy();
 		buttonInstance.destroy();
 
-		return Promise.all(stub.returnValues)
-			.then(( res ) => {
-				assert.ok(res.length <= 3);
-			});
+		const res = await Promise.all(stub.returnValues);
+
+		assert.ok(res.length <= 3);
 
 	});
 
-	it('should wait for Promise resolve in secondary action callback', function () {
+	it('should wait for Promise resolve in secondary action callback', async function () {
 
 		const stub = sinon.stub().resolves();
 
@@ -679,10 +678,9 @@ describe('Promise support in callbacks', function () {
 		tagInstance.destroy();
 		buttonInstance.destroy();
 
-		return Promise.all(stub.returnValues)
-			.then(( res ) => {
-				assert.ok(res.length <= 3);
-			});
+		const res = await Promise.all(stub.returnValues);
+
+		assert.ok(res.length <= 3);
 
 	});
 
