@@ -1,10 +1,7 @@
-'use strict';
-
-const extend = require('xtend/mutable');
-const closest = require('dom-closest');
-const classList = require('class-list');
-const classListMultipleValues = require('classlist-multiple-values');
-const isPromise = require('is-promise');
+import closest from 'dom-closest';
+import classList from 'class-list';
+import classListMultipleValues from 'classlist-multiple-values';
+import isPromise from 'is-promise';
 
 const isMacOs = /OS X/i.test(navigator.userAgent);
 
@@ -117,7 +114,10 @@ function isMetaReturnClick ( e ) {
 function FauxAnchor ( element, options ) {
 
 	this.element = element;
-	this.options = extend({}, this.options, options);
+	this.options = {
+		...this.options,
+		...options
+	};
 
 	this.prepareClassList();
 
@@ -131,7 +131,7 @@ function FauxAnchor ( element, options ) {
 
 }
 
-extend(FauxAnchor.prototype, {
+Object.assign(FauxAnchor.prototype, {
 
 	options: {
 		focusUnfocusable: true,
@@ -144,7 +144,7 @@ extend(FauxAnchor.prototype, {
 		elementClass: ELEMENT_CLASS
 	},
 
-	determineType: function () {
+	determineType () {
 		if ( this.element instanceof HTMLAnchorElement ) {
 			return TYPE_ANCHOR;
 		}
@@ -157,7 +157,7 @@ extend(FauxAnchor.prototype, {
 		return TYPE_UNFOCUSABLE;
 	},
 
-	determineHref: function () {
+	determineHref () {
 		if ( this.type === TYPE_ANCHOR ) {
 			return this.element.href;
 		}
@@ -170,7 +170,7 @@ extend(FauxAnchor.prototype, {
 		throw new Error('Cannot determine href value for faux anchor.');
 	},
 
-	determineTarget: function ( e ) {
+	determineTarget ( e ) {
 
 		if ( typeof e !== 'undefined' ) {
 
@@ -213,7 +213,7 @@ extend(FauxAnchor.prototype, {
 
 	},
 
-	determineRelations: function () {
+	determineRelations () {
 		if ( this.type === TYPE_ANCHOR ) {
 			return this.element.rel;
 		}
@@ -226,7 +226,7 @@ extend(FauxAnchor.prototype, {
 		return '';
 	},
 
-	prepareClassList: function () {
+	prepareClassList () {
 
 		const cl = classList(this.element);
 		const clmv = classListMultipleValues(cl);
@@ -238,7 +238,7 @@ extend(FauxAnchor.prototype, {
 
 	},
 
-	setupDom: function () {
+	setupDom () {
 
 		this.classList.add(ELEMENT_CLASS);
 		this.classList.add(this.options.elementClass);
@@ -253,7 +253,7 @@ extend(FauxAnchor.prototype, {
 
 	},
 
-	destroyDom: function () {
+	destroyDom () {
 
 		this.classList.remove(ELEMENT_CLASS);
 		this.classList.remove(this.options.elementClass);
@@ -268,7 +268,7 @@ extend(FauxAnchor.prototype, {
 
 	},
 
-	setupEvents: function () {
+	setupEvents () {
 
 		this.eventListeners = {
 			click: ( e ) => {
@@ -332,7 +332,7 @@ extend(FauxAnchor.prototype, {
 
 	},
 
-	destroyEvents: function () {
+	destroyEvents () {
 
 		Object.keys(this.eventListeners)
 			.forEach(( ev ) => {
@@ -346,7 +346,7 @@ extend(FauxAnchor.prototype, {
 	 *
 	 * @return {Boolean}
 	 */
-	shouldTriggerAction: function ( e ) {
+	shouldTriggerAction ( e ) {
 
 		/**
 		 * Don’t trigger action when clicking on anchor
@@ -367,7 +367,7 @@ extend(FauxAnchor.prototype, {
 	 *
 	 * @return {Boolean}
 	 */
-	shouldStopEventPropagation: function ( e ) {
+	shouldStopEventPropagation ( e ) {
 
 		/**
 		 * Stop event propagation if instance has non-anchor element and
@@ -386,7 +386,7 @@ extend(FauxAnchor.prototype, {
 	/**
 	 * @param  {Event} e
 	 */
-	triggerAction: function ( e ) {
+	triggerAction ( e ) {
 
 		const target = this.determineTarget(e);
 		let cb, returnValue;
@@ -418,11 +418,11 @@ extend(FauxAnchor.prototype, {
 
 	},
 
-	simulatePrimaryAction: function () {
+	simulatePrimaryAction () {
 		return window.location.assign(this.href);
 	},
 
-	simulateSecondaryAction: function () {
+	simulateSecondaryAction () {
 		const w = window.open(this.href, '_blank');
 		if (
 			w &&
@@ -434,14 +434,21 @@ extend(FauxAnchor.prototype, {
 		return w;
 	},
 
-	destroy: function () {
+	destroy () {
 		this.destroyDom();
 		this.destroyEvents();
 	}
 
 });
 
-module.exports = ( element, options ) => {
+const defaultOptions = FauxAnchor.prototype.options;
+
+export {
+	defaultOptions,
+	FauxAnchor
+};
+
+export default ( element, options ) => {
 	const instance = new FauxAnchor(element, options);
 	return {
 		destroy: () => {
@@ -449,5 +456,3 @@ module.exports = ( element, options ) => {
 		}
 	};
 };
-module.exports.defaultOptions = FauxAnchor.prototype.options;
-module.exports.FauxAnchor = FauxAnchor;

@@ -25,9 +25,10 @@ Default structure for faux anchor.
 ```
 
 ```js
-const fauxanchor = require('faux-anchor');
+import fauxanchor from 'faux-anchor';
 const anchorElement = document.querySelector('.jackie');
 const tagElement = document.querySelector('.lexie');
+const statsLogger = ( cb ) => cb();
 
 const anchorInstance = fauxanchor(anchorElement, {
 	onPrimaryAction: ( e, cb ) => {
@@ -45,7 +46,7 @@ const anchorInstance = fauxanchor(anchorElement, {
 		// Called on secondary action (e.g. middle mouse button click)
 		
 		// You can return Promise which proceeds with native/simulated behavior if it resolves
-		return statsLoggerAsPromise;
+		return Promise.resolve();
 	}
 });
 

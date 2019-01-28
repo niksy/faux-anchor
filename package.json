@@ -36,8 +36,7 @@
     "class-list": "^0.1.1",
     "classlist-multiple-values": "^1.0.1",
     "dom-closest": "^0.2.0",
-    "is-promise": "^2.1.0",
-    "xtend": "^4.0.1"
+    "is-promise": "^2.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",

@@ -1,10 +1,8 @@
-'use strict';
-
-const assert = require('assert');
-const classList = require('class-list');
-const simulant = require('simulant');
-const sinon = require('sinon');
-const fn = require('../../index');
+import assert from 'assert';
+import classList from 'class-list';
+import simulant from 'simulant';
+import sinon from 'sinon';
+import fn, { FauxAnchor } from '../../index';
 
 let anchorElement, tagElement, buttonElement,
 	anchorTargetElement, tagTargetElement, buttonTargetElement,
@@ -105,7 +103,7 @@ describe('Standard attributes', function () {
 
 	it('should trigger primary click default action', function () {
 
-		const spy = sinon.spy(fn.FauxAnchor.prototype, 'simulatePrimaryAction');
+		const spy = sinon.spy(FauxAnchor.prototype, 'simulatePrimaryAction');
 
 		const anchorInstance = fn(anchorElement);
 		const tagInstance = fn(tagElement);
@@ -126,7 +124,7 @@ describe('Standard attributes', function () {
 
 	it('should trigger secondary click default action', function () {
 
-		const spy = sinon.spy(fn.FauxAnchor.prototype, 'simulateSecondaryAction');
+		const spy = sinon.spy(FauxAnchor.prototype, 'simulateSecondaryAction');
 
 		const anchorInstance = fn(anchorElement);
 		const tagInstance = fn(tagElement);
@@ -301,7 +299,7 @@ describe('Attributes `target` and `data-target`', function () {
 
 	it('should trigger primary click default action', function () {
 
-		const spy = sinon.spy(fn.FauxAnchor.prototype, 'simulatePrimaryAction');
+		const spy = sinon.spy(FauxAnchor.prototype, 'simulatePrimaryAction');
 
 		const anchorInstance = fn(anchorTargetElement);
 		const tagInstance = fn(tagTargetElement);
@@ -322,7 +320,7 @@ describe('Attributes `target` and `data-target`', function () {
 
 	it('should trigger secondary click default action', function () {
 
-		const spy = sinon.spy(fn.FauxAnchor.prototype, 'simulateSecondaryAction');
+		const spy = sinon.spy(FauxAnchor.prototype, 'simulateSecondaryAction');
 
 		const anchorInstance = fn(anchorTargetElement);
 		const tagInstance = fn(tagTargetElement);
@@ -497,7 +495,7 @@ describe('Attribute `data-rel`', function () {
 
 	it('should set opener to null', function () {
 
-		const spy = sinon.spy(fn.FauxAnchor.prototype, 'simulateSecondaryAction');
+		const spy = sinon.spy(FauxAnchor.prototype, 'simulateSecondaryAction');
 
 		const tagInstance = fn(tagRelElement);
 
