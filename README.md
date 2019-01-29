@@ -28,24 +28,21 @@ Default structure for faux anchor.
 import fauxanchor from 'faux-anchor';
 const anchorElement = document.querySelector('.jackie');
 const tagElement = document.querySelector('.lexie');
-const statsLogger = ( cb ) => cb();
+const statsLogger = () => Promise.resolve();
 
 const anchorInstance = fauxanchor(anchorElement, {
-	onPrimaryAction: ( e, cb ) => {
+	onPrimaryAction: ( e ) => {
 		// Called on primary action (e.g. left mouse button click)
 		
-		// Example: Log some stats…
-		statsLogger(() => {
-			
-			// After it’s done, callback is called to proceed with native/simulated behavior
-			cb();
-		});
+		// Example: Log some stats;
+		// Return Promise to proceed with native/simulated behavior if it resolves
+		return statsLogger();
 
 	},
-	onSecondaryAction: () => {
+	onSecondaryAction: ( e ) => {
 		// Called on secondary action (e.g. middle mouse button click)
 		
-		// You can return Promise which proceeds with native/simulated behavior if it resolves
+		// Return Promise to proceed with native/simulated behavior if it resolves
 		return Promise.resolve();
 	}
 });
@@ -75,29 +72,29 @@ Type: `Object`
 
 ##### onPrimaryAction
 
-Type: `Function`
+Type: `Function`  
+Default: `( e ) => Promise.resolve()`
 
 Callback for primary action (e.g. left mouse button click). This is usually action triggered in the same window.
 
-You can either return Promise or call second function argument to proceed with native/simulated behavior.
+Return `Promise` to proceed with native/simulated behavior.
 
 Function arguments:
 
 * **e** `Event` Event which triggered callback
-* **cb** `Function` Callback to proceed with native/simulated behavior.
 
 ##### onSecondaryAction
 
-Type: `Function`
+Type: `Function`  
+Default: `( e ) => Promise.resolve()`
 
 Callback for secondary action (e.g. middle mouse button click). For anchor elements this is usually new window opened via browser native heuristics, and for non-anchor elements `window.open` is used where possible.
 
-You can either return Promise or call second function argument to proceed with native/simulated behavior.
+Return `Promise` to proceed with native/simulated behavior.
 
 Function arguments:
 
 * **e** `Event` Event which triggered callback
-* **cb** `Function` Callback to proceed with native/simulated behavior.
 
 ##### focusUnfocusable
 
@@ -125,7 +122,7 @@ For manual tests, run `npm run test:manual` and open <http://localhost:9000/> in
 
 ## Browser support
 
-Tested in IE9+ and all modern browsers.
+Tested in IE9+ and all modern browsers. `Promise` should be available globally.
 
 ## License
 

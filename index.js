@@ -104,11 +104,12 @@ function isMetaReturnClick ( e ) {
 }
 
 /**
- * @param  {Event}   e
- * @param  {Function} cb
+ * @param  {Event} e
+ *
+ * @return {Promise}
  */
-function defaultActionCb ( e, cb) {
-	cb();
+function defaultActionCb ( e ) {
+	return Promise.resolve();
 }
 
 /**
@@ -397,14 +398,14 @@ class FauxAnchor {
 			}
 
 			cb = () => {};
-			returnValue = this.options.onSecondaryAction(e, cb);
+			returnValue = this.options.onSecondaryAction(e);
 
 		} else {
 
 			cb = () => {
 				this.simulatePrimaryAction();
 			};
-			returnValue = this.options.onPrimaryAction(e, cb);
+			returnValue = this.options.onPrimaryAction(e);
 
 		}
 

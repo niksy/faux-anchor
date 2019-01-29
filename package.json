@@ -27,8 +27,8 @@
     "test": "npm run lint && npm run test:automated",
     "test:automated": "BABEL_ENV=test karma start",
     "test:automated:watch": "npm run test:automated -- --auto-watch --no-single-run",
-    "test:generate-static-site": "webpack --config ./test/manual/webpack.config.js",
-    "test:generate-static-site:watch": "webpack-dev-server --config ./test/manual/webpack.config.js",
+    "test:generate-static-site": "BABEL_ENV=test webpack --config ./test/manual/webpack.config.js",
+    "test:generate-static-site:watch": "BABEL_ENV=test webpack-dev-server --config ./test/manual/webpack.config.js",
     "test:manual": "npm run test:generate-static-site:watch",
     "version": "version-changelog CHANGELOG.md && changelog-verify CHANGELOG.md && git add CHANGELOG.md"
   },
