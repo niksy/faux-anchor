@@ -103,8 +103,21 @@ function isMetaReturnClick ( e ) {
 	return false;
 }
 
+/**
+ * @param  {Event}   e
+ * @param  {Function} cb
+ */
 function defaultActionCb ( e, cb) {
 	cb();
+}
+
+/**
+ * @param  {String} href
+ *
+ * @return {Object}
+ */
+function primaryActionHandlerCb ( href ) {
+	return window.location.assign(href);
 }
 
 class FauxAnchor {
@@ -118,7 +131,8 @@ class FauxAnchor {
 		const {
 			focusUnfocusable = true,
 			onPrimaryAction = defaultActionCb,
-			onSecondaryAction = defaultActionCb
+			onSecondaryAction = defaultActionCb,
+			primaryActionHandler = primaryActionHandlerCb
 		} = options;
 
 		this.element = element;
@@ -126,7 +140,8 @@ class FauxAnchor {
 			...this.options,
 			focusUnfocusable,
 			onPrimaryAction,
-			onSecondaryAction
+			onSecondaryAction,
+			primaryActionHandler
 		};
 
 		this.type = this.determineType();
@@ -400,7 +415,7 @@ class FauxAnchor {
 	}
 
 	simulatePrimaryAction () {
-		return window.location.assign(this.href);
+		return this.options.primaryActionHandler(this.href);
 	}
 
 	simulateSecondaryAction () {

@@ -106,6 +106,13 @@ Default: `true`
 
 Should the unfocusable element (e.g. generic tag) be focusable.
 
+##### primaryActionHandler
+
+Type: `Function`  
+Default: `( href ) => window.location.assign(href)`
+
+Set primary action handler. Useful if you want to handle primary actions with client-side router.
+
 ### instance.destroy()
 
 Destroy instance.
