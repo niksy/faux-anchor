@@ -103,40 +103,40 @@ function isMetaReturnClick ( e ) {
 	return false;
 }
 
+class FauxAnchor {
 
-/**
- * @param {Element} element
- * @param {Object} options
- */
-function FauxAnchor ( element, options ) {
+	/**
+	 * @param {Element} element
+	 * @param {Object} options
+	 */
+	constructor ( element, options ) {
 
-	this.element = element;
-	this.options = {
-		...this.options,
-		...options
-	};
+		const defaultOptions = {
+			focusUnfocusable: true,
+			onPrimaryAction: ( e, cb ) => {
+				cb();
+			},
+			onSecondaryAction: ( e, cb ) => {
+				cb();
+			}
+		};
 
-	this.type = this.determineType();
-	this.href = this.determineHref();
-	this.target = this.determineTarget();
-	this.rel = this.determineRelations();
+		this.element = element;
+		this.options = {
+			...this.options,
+			...defaultOptions,
+			...options
+		};
 
-	this.setupDom();
-	this.setupEvents();
+		this.type = this.determineType();
+		this.href = this.determineHref();
+		this.target = this.determineTarget();
+		this.rel = this.determineRelations();
 
-}
+		this.setupDom();
+		this.setupEvents();
 
-Object.assign(FauxAnchor.prototype, {
-
-	options: {
-		focusUnfocusable: true,
-		onPrimaryAction: ( e, cb ) => {
-			cb();
-		},
-		onSecondaryAction: ( e, cb ) => {
-			cb();
-		}
-	},
+	}
 
 	determineType () {
 		if ( this.element instanceof HTMLAnchorElement ) {
@@ -149,7 +149,7 @@ Object.assign(FauxAnchor.prototype, {
 			return TYPE_BUTTON;
 		}
 		return TYPE_UNFOCUSABLE;
-	},
+	}
 
 	determineHref () {
 		if ( this.type === TYPE_ANCHOR ) {
@@ -162,7 +162,7 @@ Object.assign(FauxAnchor.prototype, {
 			return this.element.getAttribute('data-href');
 		}
 		throw new Error('Cannot determine href value for faux anchor.');
-	},
+	}
 
 	determineTarget ( e ) {
 
@@ -205,7 +205,7 @@ Object.assign(FauxAnchor.prototype, {
 		}
 		return TARGET_SAME_WINDOW;
 
-	},
+	}
 
 	determineRelations () {
 		if ( this.type === TYPE_ANCHOR ) {
@@ -218,7 +218,7 @@ Object.assign(FauxAnchor.prototype, {
 			return this.element.getAttribute('data-rel');
 		}
 		return '';
-	},
+	}
 
 	setupDom () {
 
@@ -232,7 +232,7 @@ Object.assign(FauxAnchor.prototype, {
 			this.element.setAttribute('tabindex', 0);
 		}
 
-	},
+	}
 
 	destroyDom () {
 
@@ -246,7 +246,7 @@ Object.assign(FauxAnchor.prototype, {
 			this.element.removeAttribute('tabindex');
 		}
 
-	},
+	}
 
 	setupEvents () {
 
@@ -310,7 +310,7 @@ Object.assign(FauxAnchor.prototype, {
 				this.element.addEventListener(ev, this.eventListeners[ev], false);
 			});
 
-	},
+	}
 
 	destroyEvents () {
 
@@ -319,7 +319,7 @@ Object.assign(FauxAnchor.prototype, {
 				this.element.removeEventListener(ev, this.eventListeners[ev], false);
 			});
 
-	},
+	}
 
 	/**
 	 * @param  {Event} e
@@ -340,7 +340,7 @@ Object.assign(FauxAnchor.prototype, {
 		}
 		return true;
 
-	},
+	}
 
 	/**
 	 * @param  {Event} e
@@ -361,7 +361,7 @@ Object.assign(FauxAnchor.prototype, {
 		}
 		return false;
 
-	},
+	}
 
 	/**
 	 * @param  {Event} e
@@ -396,11 +396,11 @@ Object.assign(FauxAnchor.prototype, {
 			returnValue.then(cb);
 		}
 
-	},
+	}
 
 	simulatePrimaryAction () {
 		return window.location.assign(this.href);
-	},
+	}
 
 	simulateSecondaryAction () {
 		const w = window.open(this.href, '_blank');
@@ -412,19 +412,16 @@ Object.assign(FauxAnchor.prototype, {
 			w.opener = null;
 		}
 		return w;
-	},
+	}
 
 	destroy () {
 		this.destroyDom();
 		this.destroyEvents();
 	}
 
-});
-
-const defaultOptions = FauxAnchor.prototype.options;
+}
 
 export {
-	defaultOptions,
 	FauxAnchor
 };
 
