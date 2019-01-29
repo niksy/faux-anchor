@@ -630,7 +630,8 @@ describe('Promise support in callbacks', function () {
 
 	it('should wait for Promise resolve in primary action callback', async function () {
 
-		const stub = sinon.stub().resolves();
+		const spy = sinon.spy();
+		const stub = sinon.stub().resolves(spy);
 
 		const anchorInstance = fn(anchorElement, {
 			onPrimaryAction: stub
@@ -650,15 +651,20 @@ describe('Promise support in callbacks', function () {
 		tagInstance.destroy();
 		buttonInstance.destroy();
 
-		const res = await Promise.all(stub.returnValues);
+		const responses = await Promise.all(stub.returnValues);
 
-		assert.ok(res.length <= 3);
+		responses.forEach(( response ) => {
+			response();
+		});
+
+		assert.ok(spy.callCount <= 3);
 
 	});
 
 	it('should wait for Promise resolve in secondary action callback', async function () {
 
-		const stub = sinon.stub().resolves();
+		const spy = sinon.spy();
+		const stub = sinon.stub().resolves(spy);
 
 		const anchorInstance = fn(anchorElement, {
 			onSecondaryAction: stub
@@ -678,9 +684,13 @@ describe('Promise support in callbacks', function () {
 		tagInstance.destroy();
 		buttonInstance.destroy();
 
-		const res = await Promise.all(stub.returnValues);
+		const responses = await Promise.all(stub.returnValues);
 
-		assert.ok(res.length <= 3);
+		responses.forEach(( response ) => {
+			response();
+		});
+
+		assert.ok(spy.callCount <= 3);
 
 	});
 
