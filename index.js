@@ -103,29 +103,30 @@ function isMetaReturnClick ( e ) {
 	return false;
 }
 
+function defaultActionCb ( e, cb) {
+	cb();
+}
+
 class FauxAnchor {
 
 	/**
 	 * @param {Element} element
 	 * @param {Object} options
 	 */
-	constructor ( element, options ) {
+	constructor ( element, options = {} ) {
 
-		const defaultOptions = {
-			focusUnfocusable: true,
-			onPrimaryAction: ( e, cb ) => {
-				cb();
-			},
-			onSecondaryAction: ( e, cb ) => {
-				cb();
-			}
-		};
+		const {
+			focusUnfocusable = true,
+			onPrimaryAction = defaultActionCb,
+			onSecondaryAction = defaultActionCb
+		} = options;
 
 		this.element = element;
 		this.options = {
 			...this.options,
-			...defaultOptions,
-			...options
+			focusUnfocusable,
+			onPrimaryAction,
+			onSecondaryAction
 		};
 
 		this.type = this.determineType();
