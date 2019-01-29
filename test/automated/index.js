@@ -55,14 +55,14 @@ describe('Instance', function () {
 		const buttonInstance = fn(buttonElement);
 
 		assert.ok(!anchorElement.getAttribute('role'));
-		assert.equal(anchorElement.getAttribute('data-faux-anchor-active'), 'true');
+		assert.equal(anchorElement.getAttribute('data-faux-anchor'), 'true');
 
 		assert.equal(tagElement.getAttribute('role'), 'link');
 		assert.equal(tagElement.getAttribute('tabindex'), 0);
-		assert.equal(tagElement.getAttribute('data-faux-anchor-active'), 'true');
+		assert.equal(tagElement.getAttribute('data-faux-anchor'), 'true');
 
 		assert.equal(buttonElement.getAttribute('role'), 'link');
-		assert.equal(buttonElement.getAttribute('data-faux-anchor-active'), 'true');
+		assert.equal(buttonElement.getAttribute('data-faux-anchor'), 'true');
 
 		anchorInstance.destroy();
 		tagInstance.destroy();
@@ -81,14 +81,14 @@ describe('Instance', function () {
 		buttonInstance.destroy();
 
 		assert.ok(!anchorElement.getAttribute('role'));
-		assert.ok(!anchorElement.getAttribute('data-faux-anchor-active'));
+		assert.ok(!anchorElement.getAttribute('data-faux-anchor'));
 
 		assert.ok(!tagElement.getAttribute('role'));
 		assert.ok(!tagElement.getAttribute('tabindex'));
-		assert.ok(!tagElement.getAttribute('data-faux-anchor-active'));
+		assert.ok(!tagElement.getAttribute('data-faux-anchor'));
 
 		assert.ok(!buttonElement.getAttribute('role'));
-		assert.ok(!buttonElement.getAttribute('data-faux-anchor-active'));
+		assert.ok(!buttonElement.getAttribute('data-faux-anchor'));
 
 	});
 

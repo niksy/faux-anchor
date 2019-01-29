@@ -10,7 +10,7 @@ const TYPE_ANCHOR = 1;
 const TYPE_BUTTON = 2;
 const TYPE_UNFOCUSABLE = 3;
 
-const FAUX_ANCHOR_ACTIVE_ATTRIBUTE = 'data-faux-anchor-active';
+const FAUX_ANCHOR_ACTIVE_ATTRIBUTE = 'data-faux-anchor';
 
 /**
  * @param  {Event}  e
