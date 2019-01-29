@@ -48,30 +48,32 @@ if ( local ) {
 				build: 'Automated (Karma)',
 				name: 'IE9'
 			},
-			'BS-iOS 8.3': {
+			/* 'BS-iOS 10.3': {
 				base: 'BrowserStack',
-				device: 'iPhone 6',
+				device: 'iPhone 7',
 				browser: 'Mobile Safari',
 				'browser_version': null,
+				'real_mobile': true,
 				os: 'ios',
-				'os_version': '8.3',
+				'os_version': '10.3',
 				project: 'faux-anchor',
 				build: 'Automated (Karma)',
 				name: 'iOS'
-			},
-			'BS-Android 4.2': {
+			}, */
+			'BS-Android 4.4': {
 				base: 'BrowserStack',
-				device: 'Google Nexus 4',
+				device: 'Google Nexus 5',
 				browser: 'Android Browser',
 				'browser_version': null,
+				'real_mobile': true,
 				os: 'android',
-				'os_version': '4.2',
+				'os_version': '4.4',
 				project: 'faux-anchor',
 				build: 'Automated (Karma)',
 				name: 'Android'
 			}
 		},
-		browsers: ['BS-Chrome', 'BS-Firefox', 'BS-IE9', 'BS-iOS 8.3', 'BS-Android 4.2']
+		browsers: ['BS-Chrome', 'BS-Firefox', 'BS-IE9', /* 'BS-iOS 10.3', */ 'BS-Android 4.4']
 	};
 }
 
