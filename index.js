@@ -1,7 +1,7 @@
 import closest from 'dom-closest';
 import isPromise from 'is-promise';
 
-const isMacOs = /OS X/i.test(navigator.userAgent);
+const isMacOs = ('navigator' in global) ? /OS X/i.test(navigator.userAgent) : false;
 
 const TARGET_SAME_WINDOW = 1;
 const TARGET_NEW_WINDOW = 2;

@@ -1,6 +1,7 @@
 'use strict';
 
 const babel = require('rollup-plugin-babel');
+const globals = require('rollup-plugin-node-globals');
 
 module.exports = {
 	input: 'index.js',
@@ -17,6 +18,7 @@ module.exports = {
 	plugins: [
 		babel({
 			exclude: 'node_modules/**'
-		})
+		}),
+		globals()
 	]
 };
