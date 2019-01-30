@@ -1,7 +1,7 @@
 import assert from 'assert';
 import simulant from 'simulant';
 import sinon from 'sinon';
-import fn, { FauxAnchor } from '../../index';
+import fn from '../../index';
 
 let anchorElement, tagElement, buttonElement,
 	anchorTargetElement, tagTargetElement, buttonTargetElement,
@@ -114,11 +114,11 @@ describe('Standard attributes', function () {
 
 	it('should trigger primary click default action', function () {
 
-		const spy = sinon.spy(FauxAnchor.prototype, 'simulatePrimaryAction');
-
 		const anchorInstance = fn(anchorElement);
 		const tagInstance = fn(tagElement);
 		const buttonInstance = fn(buttonElement);
+
+		const spy = sinon.spy(Object.getPrototypeOf(anchorInstance.instance), 'simulatePrimaryAction');
 
 		simulant.fire(anchorElement, leftClick);
 		simulant.fire(tagElement, leftClick);
@@ -135,11 +135,11 @@ describe('Standard attributes', function () {
 
 	it('should trigger secondary click default action', function () {
 
-		const spy = sinon.spy(FauxAnchor.prototype, 'simulateSecondaryAction');
-
 		const anchorInstance = fn(anchorElement);
 		const tagInstance = fn(tagElement);
 		const buttonInstance = fn(buttonElement);
+
+		const spy = sinon.spy(Object.getPrototypeOf(anchorInstance.instance), 'simulateSecondaryAction');
 
 		simulant.fire(anchorElement, middleClick);
 		simulant.fire(tagElement, middleClick);
@@ -340,11 +340,11 @@ describe('Attributes `target` and `data-target`', function () {
 
 	it('should trigger primary click default action', function () {
 
-		const spy = sinon.spy(FauxAnchor.prototype, 'simulatePrimaryAction');
-
 		const anchorInstance = fn(anchorTargetElement);
 		const tagInstance = fn(tagTargetElement);
 		const buttonInstance = fn(buttonTargetElement);
+
+		const spy = sinon.spy(Object.getPrototypeOf(anchorInstance.instance), 'simulatePrimaryAction');
 
 		simulant.fire(anchorTargetElement, leftClick);
 		simulant.fire(tagTargetElement, leftClick);
@@ -361,11 +361,11 @@ describe('Attributes `target` and `data-target`', function () {
 
 	it('should trigger secondary click default action', function () {
 
-		const spy = sinon.spy(FauxAnchor.prototype, 'simulateSecondaryAction');
-
 		const anchorInstance = fn(anchorTargetElement);
 		const tagInstance = fn(tagTargetElement);
 		const buttonInstance = fn(buttonTargetElement);
+
+		const spy = sinon.spy(Object.getPrototypeOf(anchorInstance.instance), 'simulateSecondaryAction');
 
 		simulant.fire(anchorTargetElement, middleClick);
 		simulant.fire(tagTargetElement, middleClick);
@@ -566,9 +566,9 @@ describe('Attribute `data-rel`', function () {
 
 	it('should set opener to null', function () {
 
-		const spy = sinon.spy(FauxAnchor.prototype, 'simulateSecondaryAction');
-
 		const tagInstance = fn(tagRelElement);
+
+		const spy = sinon.spy(Object.getPrototypeOf(tagInstance.instance), 'simulateSecondaryAction');
 
 		simulant.fire(tagRelElement, metaLeftClick);
 

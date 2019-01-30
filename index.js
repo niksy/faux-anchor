@@ -438,13 +438,12 @@ class FauxAnchor {
 
 }
 
-export {
-	FauxAnchor
-};
-
 export default ( element, options ) => {
 	const instance = new FauxAnchor(element, options);
 	return {
+		...(process.env.BABEL_ENV === 'test' && { // eslint-disable-line no-process-env, no-undef
+			instance: instance
+		}),
 		destroy: () => {
 			instance.destroy();
 		}
