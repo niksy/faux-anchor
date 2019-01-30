@@ -21,7 +21,6 @@
     "build": "rollup --config rollup.config.js",
     "lint": "eslint '{index,lib/**/*,test/**/*}.js'",
     "postpublish": "GITHUB_TOKEN=$GITHUB_RELEASE_TOKEN github-release-from-changelog",
-    "prepublish": "npm run build",
     "prepublishOnly": "npm run build",
     "release": "np",
     "test": "npm run lint && npm run test:automated",
