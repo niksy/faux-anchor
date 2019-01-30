@@ -2,6 +2,8 @@
 
 ## [Unreleased][]
 
+## [2.0.0][] - 2019-01-30
+
 - Convert to ES Modules
 - Make action handler accept only Promise as return value
 - Add option to override primary and secondary action simulation
@@ -12,3 +14,7 @@
 ### Added
 
 - Initial implementation
+
+
+[Unreleased]: https://github.com/niksy/faux-anchor/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/niksy/faux-anchor/tree/v2.0.0
