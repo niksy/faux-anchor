@@ -1,6 +1,6 @@
 {
   "name": "faux-anchor",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Improve anchor and non-anchor elements with primary and secondary actions and callbacks.",
   "main": "index.cjs.js",
   "module": "index.esm.js",

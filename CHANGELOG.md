@@ -2,6 +2,8 @@
 
 ## [Unreleased][]
 
+## [2.0.1][] - 2019-01-30
+
 ### Removed
 
 - `prepublish` npm hook so it doesn’t run build steps when unecessary
@@ -23,5 +25,6 @@
 
 - Support for HTML element class, implementors should add them manually
 
-[Unreleased]: https://github.com/niksy/faux-anchor/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/niksy/faux-anchor/compare/v2.0.1...HEAD
+[2.0.1]: https://github.com/niksy/faux-anchor/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/niksy/faux-anchor/tree/v2.0.0
